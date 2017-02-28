@@ -6,4 +6,5 @@ node_modules
 coverage
 schema.*
 .ignore
-lib
+public
+db.sqlite3

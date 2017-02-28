@@ -7,9 +7,10 @@
     "prepublish": "yarn babel",
     "test-server": "nodemon ./lib/server.js",
     "start": "NODE_ENV=production node ./lib/server.js",
-    "build": "yarn babel",
+    "build": "yarn babel && yarn sqlite",
     "prod": "export NODE_ENV=production && yarn babel",
-    "watch": "concurrently -c green \"yarn lint:watch\" \"yarn babel:watch\""
+    "watch": "concurrently -c green \"yarn lint:watch\" \"yarn babel:watch\"",
+    "sqlite": "node ./bin/sqlite3.js"
   },
   "main": "./lib/index.js",
   "name": "cat-parser",
@@ -50,10 +51,6 @@
     "eslint-import-resolver-babel-module": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-watch": "^3.0.0",
-    "pre-commit": "^1.2.2"
-  },
-  "dependencies": {
-    "graphql": "^0.9.1",
     "koa": "next",
     "koa-better-router": "^2.1.1",
     "koa-body": "2",
@@ -64,6 +61,17 @@
     "koa-helmet": "^3.1.0",
     "koa-morgan": "^1.0.1",
     "koa-mount": "next",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "cat-utils": "^0.0.8",
+    "chalk": "^1.1.3",
+    "csv": "^1.1.1",
+    "graphql": "^0.9.1",
+    "jsdom": "^9.11.0",
+    "json2csv": "^3.7.3",
+    "sqlite3": "^3.1.8",
+    "urlencode": "^1.1.0"
   }
 }
