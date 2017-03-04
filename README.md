@@ -1,5 +1,5 @@
-# Cat-parser
-cat parser
+# Open-data
+open data
 
 ## Getting Started
 Install packages using [yarn](https://yarnpkg.com/) (we assume you have pre-installed [npm](https://www.npmjs.com/) and [node.js](https://nodejs.org/)).

@@ -7,11 +7,12 @@
       "type": [
         "server",
         "graphql",
-        "npm"
+        "heroku"
       ]
     },
     "plugins": [
-      "graphql"
+      "graphql",
+      "heroku"
     ],
     "alias": {
       "schemas": "schemas",
