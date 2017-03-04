@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "getData": "yarn babel && node ./bin/getDataManually.js",
     "lint": "eslint --cache ./src ./bin --ext .js",
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "concurrently": "^3.4.0",
+    "csv": "^1.1.1",
     "eslint": "^3.17.0",
     "eslint-config-google": "^0.7.1",
     "eslint-import-resolver-babel-module": "^3.0.0",
@@ -52,7 +54,10 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
+    "cat-utils": "^0.0.11",
+    "firebase": "^3.7.0",
     "graphql": "^0.9.1",
+    "jsdom": "^9.11.0",
     "koa": "next",
     "koa-better-router": "^2.1.1",
     "koa-body": "2",
@@ -63,6 +68,8 @@
     "koa-helmet": "^3.1.0",
     "koa-morgan": "^1.0.1",
     "koa-mount": "next",
-    "nodemon": "^1.11.0"
+    "moment": "^2.17.1",
+    "nodemon": "^1.11.0",
+    "urlencode": "^1.1.0"
   }
 }

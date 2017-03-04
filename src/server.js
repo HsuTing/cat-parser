@@ -14,8 +14,6 @@ import convert from 'koa-convert';
 import graphql from 'koa-graphql';
 import schema from 'schemas/schema';
 
-import router from './router';
-
 const app = new Koa();
 const root = path.resolve(__dirname, './../');
 const ENV = process.env.NODE_ENV === 'production';
@@ -37,8 +35,7 @@ app.use(compress({
   threshold: 2048,
   flush: zlib.Z_SYNC_FLUSH
 }));
-app.use(router.middleware());
-app.use(mount('/graphql', convert(graphql({
+app.use(mount('/', convert(graphql({
   schema,
   graphiql: !ENV,
   pretty: !ENV,

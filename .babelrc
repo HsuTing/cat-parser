@@ -11,7 +11,8 @@
         "schemas": "schemas",
         "routes": "routes",
         "middleware": "middleware",
-        "utils": "utils"
+        "utils": "utils",
+        "utilsTaiwan": "utils/taiwan"
       }
     }]
   ]
