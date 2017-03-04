@@ -37,8 +37,8 @@ app.use(compress({
 }));
 app.use(mount('/', convert(graphql({
   schema,
-  graphiql: !ENV,
-  pretty: !ENV,
+  graphiql: !ENV || true,
+  pretty: !ENV || true,
   formatError: error => {
     if(!ENV)
       console.log(error);
