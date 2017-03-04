@@ -23,7 +23,7 @@ export default {
         if(name)
           resolve(name.map(key => values[key] || {}));
         else
-          resolve(Object.values(values));
+          resolve(Object.keys(values).map(key => values[key] || {}));
       })
       .catch(err => reject(err))
   }),
