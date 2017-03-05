@@ -46,19 +46,19 @@ export default name => new Promise((resolve, reject) => {
 
       const data = {
         name,
-        id: output['管制編號'],
-        area: output['興建面積(公頃)'],
-        operating_unit: output['操作單位'],
-        build_organ: output['興建主辦機關'],
-        start_date: output['開工日期'],
-        address: output['地址'],
-        end_date: output['完工日期'],
-        type: output['營運型態'],
-        supervise_organ: output['營運監督機構'],
-        government_processing_capacity: output['縣府提供年保證處理量(公噸/年)'],
-        company_processing_capacity: output['一般事業廢棄物廠商保證量(公噸/年)'],
-        design_processing_capacity: output['設計處理量(公噸/日)'],
-        environmental_assessment_date: output['環評審查公告日期'],
+        id: output['管制編號'] || '',
+        area: output['興建面積(公頃)'] || '',
+        operating_unit: output['操作單位'] || '',
+        build_organ: output['興建主辦機關'] || '',
+        start_date: output['開工日期'] || '',
+        address: output['地址'] || '',
+        end_date: output['完工日期'] || '',
+        type: output['營運型態'] || '',
+        supervise_organ: output['營運監督機構'] || '',
+        government_processing_capacity: output['縣府提供年保證處理量(公噸/年)'] || '',
+        company_processing_capacity: output['一般事業廢棄物廠商保證量(公噸/年)'] || '',
+        design_processing_capacity: output['設計處理量(公噸/日)'] || '',
+        environmental_assessment_date: output['環評審查公告日期'] || '',
         update_time: moment().format()
       };
 

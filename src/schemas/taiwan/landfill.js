@@ -5,8 +5,26 @@ import {
   GraphQLList,
   GraphQLObjectType
 } from 'graphql';
+import moment from 'moment';
 
 import firebase from 'utils/firebase';
+import getData from 'utilsTaiwan/landfill';
+
+const update = (name, value) => new Promise((resolve, reject) => {
+  const diff = (
+    value.update_time ?
+    moment().unix() - moment(value.update_time).unix() :
+    60 * 60 + 1
+  );
+  const needToUpdate = diff > 60 * 60;
+
+  if(needToUpdate)
+    getData(name)
+      .then(data => resolve(data))
+      .catch(err => reject(err));
+  else
+    resolve(value || {});
+});
 
 export default {
   description: 'Array of landfill data(行政院環保署 垃圾掩埋場資料)',
@@ -19,11 +37,12 @@ export default {
     firebase.database().ref('/taiwan/landfill').once('value')
       .then(snapshot => {
         const values = snapshot.val();
+        const tasks = (name ? name : Object.keys(values))
+          .map(key => update(key, values[key]));
 
-        if(name)
-          resolve(name.map(key => values[key] || {}));
-        else
-          resolve(Object.keys(values).map(key => values[key] || {}));
+        Promise.all(tasks)
+          .then(data => resolve(data))
+          .catch(err => reject(err));
       })
       .catch(err => reject(err))
   }),
