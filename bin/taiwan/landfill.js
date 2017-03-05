@@ -6,7 +6,7 @@ const parse = require('csv').parse;
 
 const getData = require('./../../lib/utils/taiwan/landfill').default;
 
-fs.readFile(path.resolve(__dirname, './../../data/landfill.csv'), (readError, input) => {
+fs.readFile(path.resolve(__dirname, './../../data/taiwan/landfill.csv'), (readError, input) => {
   if(readError)
     throw new Error(readError);
 
