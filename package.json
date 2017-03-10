@@ -1,17 +1,20 @@
 {
   "scripts": {
-    "getData": "yarn babel && node ./bin/getDataManually.js",
     "lint": "eslint --cache ./src ./bin --ext .js",
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
     "babel:watch": "rm -rf ./lib && babel -w src --out-dir lib",
+    "prepublish": "yarn babel",
     "test-server": "nodemon ./lib/server.js",
     "start": "NODE_ENV=production node ./lib/server.js",
     "build": "yarn babel",
     "prod": "export NODE_ENV=production && yarn babel",
     "watch": "concurrently -c green \"yarn lint:watch\" \"yarn babel:watch\"",
-    "heroku-postbuild": "yarn prod"
+    "heroku-postbuild": "yarn prod",
+    "postinstall": "yarn babel && yarn build-graphql ./graphql.json",
+    "getData": "yarn babel && node ./bin/getDataManually.js"
   },
+  "main": "index.js",
   "name": "open-data",
   "version": "0.0.0",
   "description": "open data",
@@ -20,7 +23,6 @@
     "email": "hsuting0106@gmail.com",
     "url": "http://hsuting.com"
   },
-  "main": "./lib/index.js",
   "keywords": [
     "open data"
   ],
@@ -54,7 +56,8 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
-    "cat-utils": "^0.0.11",
+    "cat-graphql": "^0.0.14",
+    "cat-utils": "^0.0.13",
     "firebase": "^3.7.0",
     "graphql": "^0.9.1",
     "jsdom": "^9.11.0",

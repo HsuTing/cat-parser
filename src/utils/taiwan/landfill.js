@@ -5,7 +5,9 @@ import urlencode from 'urlencode';
 import moment from 'moment';
 
 import {error, success} from 'utils/message';
-import firebase from 'utils/firebase';
+import firebase, {auth} from 'cat-utils/lib/firebaseInit';
+
+auth();
 
 export default name => new Promise((resolve, reject) => {
   const url = `http://erdb.epa.gov.tw/DataRepository/Facilities/LandFillDetail.aspx?FacilityName=${urlencode(name)}&topic1=${urlencode('地')}&topic2=${urlencode('設施')}&subject=${urlencode('廢棄物處理')}`

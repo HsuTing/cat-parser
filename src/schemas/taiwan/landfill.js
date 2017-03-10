@@ -7,8 +7,10 @@ import {
 } from 'graphql';
 import moment from 'moment';
 
-import firebase from 'utils/firebase';
+import firebase, {auth} from 'cat-utils/lib/firebaseInit';
 import getData from 'utilsTaiwan/landfill';
+
+auth();
 
 const update = (name, value) => new Promise((resolve, reject) => {
   const diff = (
