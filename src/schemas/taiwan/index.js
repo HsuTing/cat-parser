@@ -7,11 +7,11 @@ import {
 import landfill from './landfill';
 
 export default {
-  description: 'open data of taiwan',
+  description: '',
   resolve: () => ({}),
   type: new GraphQLObjectType({
     name: 'dataType',
-    description: 'set of data',
+    description: '',
     fields: () => ({
       landfill
     })

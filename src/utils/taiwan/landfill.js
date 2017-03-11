@@ -3,9 +3,9 @@
 import jsdom from 'jsdom';
 import urlencode from 'urlencode';
 import moment from 'moment';
+import firebase, {auth} from 'cat-utils/lib/firebaseInit';
 
 import {error, success} from 'utils/message';
-import firebase, {auth} from 'cat-utils/lib/firebaseInit';
 
 auth();
 
