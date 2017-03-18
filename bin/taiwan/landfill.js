@@ -2,16 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
+const process = require('process');
 const jsdom = require('jsdom');
 const urlencode = require('urlencode');
 const moment = require('moment');
-const firebase = require('cat-utils/lib/firebaseInit').default;
-const auth = require('cat-utils/lib/firebaseInit').auth;
 const parse = require('csv').parse;
 
 const message = require('./../message');
-
-auth();
+const writeFile = require('./../writeFile');
 
 const getData = name => new Promise((resolve, reject) => {
   const url = `http://erdb.epa.gov.tw/DataRepository/Facilities/LandFillDetail.aspx?FacilityName=${urlencode(name)}&topic1=${urlencode('地')}&topic2=${urlencode('設施')}&subject=${urlencode('廢棄物處理')}`
@@ -69,23 +67,53 @@ const getData = name => new Promise((resolve, reject) => {
       };
 
       message.success(name);
-      firebase.database().ref(`taiwan/landfill/${name}`).set(data);
       resolve(data);
     }
   });
 });
 
-fs.readFile(path.resolve(__dirname, './../../data/taiwan/landfill.csv'), (readError, input) => {
-  if(readError)
-    throw new Error(readError);
+const update = (name, value = {}) => new Promise((resolve, reject) => {
+  const landfillUpdateTime = 24 * 60 * 60;
+  const diff = (
+    value.update_time ?
+    moment().unix() - moment(value.update_time).unix() :
+    landfillUpdateTime + 1
+  );
+  const needToUpdate = diff > landfillUpdateTime;
 
-  parse(input, {comment: '#'}, (parseError, output) => {
-    if(parseError)
-      throw new Error(parseError);
-
-    const tasks = output.slice(1)
-      .map(item => getData(item[1]));
-
-    Promise.all(tasks.slice(1));
-  });
+  if(needToUpdate)
+    getData(name)
+      .then(data => resolve(data))
+      .catch(err => reject(err));
+  else
+    resolve(value || {});
 });
+
+(() => {
+  fs.readFile(path.resolve(process.cwd(), './data/taiwan/landfill.csv'), (readError, input) => {
+    fs.readFile(path.resolve(process.cwd(), './public/taiwan/landfill.json'), (getDataError, originData) => {
+      if(readError)
+        throw new Error(readError);
+
+      parse(input, {comment: '#'}, (parseError, output) => {
+        if(parseError)
+          throw new Error(parseError);
+
+        const data = originData ? JSON.parse(originData) : {};
+        const tasks = output.slice(1)
+          .map(item => update(item[1], data[item[1]]));
+
+        Promise.all(tasks)
+          .then(data => {
+            const output = {};
+
+            data.forEach(item => {
+              output[item.name] = item;
+            });
+            writeFile('taiwan/landfill', output);
+          })
+          .catch(err => console.log(err));
+      });
+    });
+  });
+})();

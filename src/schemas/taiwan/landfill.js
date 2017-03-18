@@ -1,13 +1,13 @@
 'use strict';
 
+import fs from 'fs';
+import path from 'path';
+import process from 'process';
 import {
   GraphQLString,
   GraphQLList,
   GraphQLObjectType
 } from 'graphql';
-import firebase, {auth} from 'cat-utils/lib/firebaseInit';
-
-auth();
 
 export default {
   description: '行政院環保署 垃圾掩埋場資料',
@@ -17,15 +17,16 @@ export default {
     }
   },
   resolve: (parent, {names}) => new Promise((resolve, reject) => {
-    firebase.database().ref('/taiwan/landfill').once('value')
-      .then(snapshot => {
-        const values = snapshot.val();
-        const data = (names ? names : Object.keys(values))
-          .map(key => values[key]);
+    fs.readFile(path.resolve(process.cwd(), './public/taiwan/landfill.json'), (getDataError, originValues = {}) => {
+      if(getDataError)
+        throw new Error(getDataError);
 
-        resolve(data);
-      })
-      .catch(err => reject(err))
+      const values = JSON.parse(originValues);
+      const data = (names ? names : Object.keys(values))
+        .map(key => values[key]);
+
+      resolve(data);
+    });
   }),
   type: new GraphQLList(new GraphQLObjectType({
     description: '',

@@ -12,6 +12,7 @@ import etag from 'koa-etag';
 import mount from 'koa-mount';
 import convert from 'koa-convert';
 import graphql from 'koa-graphql';
+import serve from 'koa-static';
 import schema from 'schemas/schema';
 
 const app = new Koa();
@@ -35,7 +36,7 @@ app.use(compress({
   threshold: 2048,
   flush: zlib.Z_SYNC_FLUSH
 }));
-app.use(mount('/', convert(graphql({
+app.use(mount('/graphql', convert(graphql({
   schema,
   graphiql: !ENV || true,
   pretty: !ENV || true,
@@ -44,6 +45,9 @@ app.use(mount('/', convert(graphql({
     console.log(JSON.stringify(error));
   }
 }))));
+app.use(mount('/data', serve(
+  path.resolve(root, 'public')
+)));
 
 // setting
 app.listen(ENV ? process.env.PORT : 8000, () => {
