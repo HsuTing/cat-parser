@@ -5,47 +5,25 @@ import {
   GraphQLList,
   GraphQLObjectType
 } from 'graphql';
-import moment from 'moment';
 import firebase, {auth} from 'cat-utils/lib/firebaseInit';
 
-import {landfill_update_time} from 'utils/updateTime';
-import getData from 'utilsTaiwan/landfill';
-
 auth();
-
-const update = (name, value) => new Promise((resolve, reject) => {
-  const diff = (
-    value.update_time ?
-    moment().unix() - moment(value.update_time).unix() :
-    landfill_update_time + 1
-  );
-  const needToUpdate = diff > landfill_update_time;
-
-  if(needToUpdate)
-    getData(name)
-      .then(data => resolve(data))
-      .catch(err => reject(err));
-  else
-    resolve(value || {});
-});
 
 export default {
   description: '行政院環保署 垃圾掩埋場資料',
   args: {
-    name: {
+    names: {
       type: new GraphQLList(GraphQLString)
     }
   },
-  resolve: (parent, {name}) => new Promise((resolve, reject) => {
+  resolve: (parent, {names}) => new Promise((resolve, reject) => {
     firebase.database().ref('/taiwan/landfill').once('value')
       .then(snapshot => {
         const values = snapshot.val();
-        const tasks = (name ? name : Object.keys(values))
-          .map(key => update(key, values[key]));
+        const data = (names ? names : Object.keys(values))
+          .map(key => values[key]);
 
-        Promise.all(tasks)
-          .then(data => resolve(data))
-          .catch(err => reject(err));
+        resolve(data);
       })
       .catch(err => reject(err))
   }),

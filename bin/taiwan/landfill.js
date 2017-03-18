@@ -2,9 +2,78 @@
 
 const fs = require('fs');
 const path = require('path');
+const jsdom = require('jsdom');
+const urlencode = require('urlencode');
+const moment = require('moment');
+const firebase = require('cat-utils/lib/firebaseInit').default;
+const auth = require('cat-utils/lib/firebaseInit').auth;
 const parse = require('csv').parse;
 
-const getData = require('./../../lib/utils/taiwan/landfill').default;
+const message = require('./../message');
+
+auth();
+
+const getData = name => new Promise((resolve, reject) => {
+  const url = `http://erdb.epa.gov.tw/DataRepository/Facilities/LandFillDetail.aspx?FacilityName=${urlencode(name)}&topic1=${urlencode('地')}&topic2=${urlencode('設施')}&subject=${urlencode('廢棄物處理')}`
+
+  jsdom.env({
+    url,
+    done: (err, window) => {
+      const output = {};
+
+      if(err) {
+        message.error(`can not get data from ${name}`);
+        return resolve(output);
+      }
+
+      const all = window.document.getElementById('meta');
+      if(!all) {
+        message.error(`can not parse data from ${name}`);
+        return resolve(output);
+      }
+
+      const trs = all.querySelectorAll('tr');
+
+      Array.from(trs).forEach(tr => {
+        const items = tr.querySelectorAll('td');
+
+        if(items) {
+          let key = '';
+          Array.from(items).forEach(item => {
+            if(!item.querySelector('div')) {
+              if(item.querySelector('span'))
+                output[key] = item.querySelector('span').innerHTML;
+              else
+                key = item.innerHTML;
+            }
+          });
+        }
+      });
+
+      const data = {
+        name,
+        id: output['管制編號'] || '',
+        area: output['興建面積(公頃)'] || '',
+        operating_unit: output['操作單位'] || '',
+        build_organ: output['興建主辦機關'] || '',
+        start_date: output['開工日期'] || '',
+        address: output['地址'] || '',
+        end_date: output['完工日期'] || '',
+        type: output['營運型態'] || '',
+        supervise_organ: output['營運監督機構'] || '',
+        government_processing_capacity: output['縣府提供年保證處理量(公噸/年)'] || '',
+        company_processing_capacity: output['一般事業廢棄物廠商保證量(公噸/年)'] || '',
+        design_processing_capacity: output['設計處理量(公噸/日)'] || '',
+        environmental_assessment_date: output['環評審查公告日期'] || '',
+        update_time: moment().format()
+      };
+
+      message.success(name);
+      firebase.database().ref(`taiwan/landfill/${name}`).set(data);
+      resolve(data);
+    }
+  });
+});
 
 fs.readFile(path.resolve(__dirname, './../../data/taiwan/landfill.csv'), (readError, input) => {
   if(readError)
@@ -17,8 +86,6 @@ fs.readFile(path.resolve(__dirname, './../../data/taiwan/landfill.csv'), (readEr
     const tasks = output.slice(1)
       .map(item => getData(item[1]));
 
-    Promise.all(tasks.slice(1))
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
+    Promise.all(tasks.slice(1));
   });
 });
