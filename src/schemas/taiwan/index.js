@@ -5,6 +5,7 @@ import {
 } from 'graphql';
 
 import landfill from './landfill';
+import OIPList from './OIPList';
 
 export default {
   description: '',
@@ -13,7 +14,8 @@ export default {
     name: 'dataType',
     description: '',
     fields: () => ({
-      landfill
+      landfill,
+      OIPList
     })
   })
 };

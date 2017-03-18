@@ -47,7 +47,11 @@
     "eslint-import-resolver-babel-module": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-watch": "^3.0.0",
-    "pre-commit": "^1.2.2"
+    "jsdom": "^9.12.0",
+    "moment": "^2.17.1",
+    "pre-commit": "^1.2.2",
+    "shelljs": "^0.7.7",
+    "urlencode": "^1.1.0"
   },
   "dependencies": {
     "babel-cli": "^6.23.0",
@@ -56,9 +60,7 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-env": "^1.2.1",
     "babel-preset-stage-0": "^6.22.0",
-    "firebase": "^3.7.0",
     "graphql": "^0.9.1",
-    "jsdom": "^9.11.0",
     "koa": "next",
     "koa-better-router": "^2.1.1",
     "koa-body": "2",
@@ -70,8 +72,6 @@
     "koa-morgan": "^1.0.1",
     "koa-mount": "next",
     "koa-static": "^3.0.0",
-    "moment": "^2.17.1",
-    "nodemon": "^1.11.0",
-    "urlencode": "^1.1.0"
+    "nodemon": "^1.11.0"
   }
 }

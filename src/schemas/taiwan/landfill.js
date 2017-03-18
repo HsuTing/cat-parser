@@ -8,6 +8,7 @@ import {
   GraphQLList,
   GraphQLObjectType
 } from 'graphql';
+import getFields from 'utils/getFields';
 
 export default {
   description: '行政院環保署 垃圾掩埋場資料',
@@ -22,8 +23,12 @@ export default {
         throw new Error(getDataError);
 
       const values = JSON.parse(originValues);
-      const data = (names ? names : Object.keys(values))
-        .map(key => values[key]);
+      const data = [];
+      (names ? names : Object.keys(values))
+        .forEach(key => {
+          if(values[key])
+            data.push(values[key]);
+        });
 
       resolve(data);
     });
@@ -31,35 +36,22 @@ export default {
   type: new GraphQLList(new GraphQLObjectType({
     description: '',
     name: 'landfill',
-    fields: () => {
-      const attributes = {
-        name: '名稱',
-        id: '管制編號',
-        area: '興建面積公頃',
-        operating_unit: '操作單位',
-        build_organ: '興建主辦機關',
-        start_date: '開工日期',
-        address: '地址',
-        end_date: '完工日期',
-        type: '營運型態',
-        supervise_organ: '營運監督機構',
-        government_processing_capacity: '縣府提供年保證處理量公噸/年',
-        company_processing_capacity: '一般事業廢棄物廠商保證量公噸/年',
-        design_processing_capacity: '設計處理量公噸/日',
-        environmental_assessment_date: '環評審查公告日期',
-        update_time: '更新日期'
-      };
-
-      Object.keys(attributes)
-        .forEach(key => {
-          attributes[key] = {
-            description: attributes[key],
-            type: GraphQLString,
-            resolve: parent => parent[key] || ''
-          }
-        });
-
-      return attributes;
-    }
+    fields: () => getFields({
+      name: '名稱',
+      id: '管制編號',
+      area: '興建面積公頃',
+      operating_unit: '操作單位',
+      build_organ: '興建主辦機關',
+      start_date: '開工日期',
+      address: '地址',
+      end_date: '完工日期',
+      type: '營運型態',
+      supervise_organ: '營運監督機構',
+      government_processing_capacity: '縣府提供年保證處理量公噸/年',
+      company_processing_capacity: '一般事業廢棄物廠商保證量公噸/年',
+      design_processing_capacity: '設計處理量公噸/日',
+      environmental_assessment_date: '環評審查公告日期',
+      update_time: '更新日期'
+    })
   }))
 };

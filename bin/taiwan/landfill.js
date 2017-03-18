@@ -11,6 +11,8 @@ const parse = require('csv').parse;
 const message = require('./../message');
 const writeFile = require('./../writeFile');
 
+const projectName = 'taiwan/landfill';
+
 const getData = name => new Promise((resolve, reject) => {
   const url = `http://erdb.epa.gov.tw/DataRepository/Facilities/LandFillDetail.aspx?FacilityName=${urlencode(name)}&topic1=${urlencode('地')}&topic2=${urlencode('設施')}&subject=${urlencode('廢棄物處理')}`
 
@@ -20,13 +22,13 @@ const getData = name => new Promise((resolve, reject) => {
       const output = {};
 
       if(err) {
-        message.error(`can not get data from ${name}`);
+        message.error(projectName, `can not get data from ${name}`);
         return resolve(output);
       }
 
       const all = window.document.getElementById('meta');
       if(!all) {
-        message.error(`can not parse data from ${name}`);
+        message.error(projectName, `can not parse data from ${name}`);
         return resolve(output);
       }
 
@@ -66,7 +68,7 @@ const getData = name => new Promise((resolve, reject) => {
         update_time: moment().format()
       };
 
-      message.success(name);
+      message.success(projectName, name);
       resolve(data);
     }
   });
@@ -90,8 +92,8 @@ const update = (name, value = {}) => new Promise((resolve, reject) => {
 });
 
 (() => {
-  fs.readFile(path.resolve(process.cwd(), './data/taiwan/landfill.csv'), (readError, input) => {
-    fs.readFile(path.resolve(process.cwd(), './public/taiwan/landfill.json'), (getDataError, originData) => {
+  fs.readFile(path.resolve(process.cwd(), `./data/${projectName}.csv`), (readError, input) => {
+    fs.readFile(path.resolve(process.cwd(), `./public/${projectName}.json`), (getDataError, originData) => {
       if(readError)
         throw new Error(readError);
 
