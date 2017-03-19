@@ -1,11 +1,69 @@
 type dataType {
-  # 行政院環保署 垃圾掩埋場資料
+  # 垃圾掩埋場資料
   landfill(names: [String]): [landfill]
 
   # 職業傷病防治中心名單
-  OIPList(names: [String], area: String): [OIPList]
+  OIPList(names: [String], areas: [String]): [OIPList]
+
+  # 文化部獨立音樂
+  independentMusic(UIDs: [String], categories: [String]): [independentMusic]
 }
 
+# 文化部獨立音樂
+type independentMusic {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 垃圾掩埋場資料
 type landfill {
   # 名稱
   name: String
@@ -53,6 +111,7 @@ type landfill {
   update_time: String
 }
 
+# 職業傷病防治中心名單
 type OIPList {
   # 區域
   area: String
@@ -73,4 +132,31 @@ type OIPList {
 # all queries
 type Query {
   taiwan: dataType
+}
+
+# 表演資訊
+type showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
 }
