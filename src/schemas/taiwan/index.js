@@ -6,6 +6,7 @@ import {
 
 import landfill from './landfill';
 import OIPList from './OIPList';
+import independentMusic from './independentMusic';
 
 export default {
   description: '',
@@ -15,7 +16,8 @@ export default {
     description: '',
     fields: () => ({
       landfill,
-      OIPList
+      OIPList,
+      independentMusic
     })
   })
 };

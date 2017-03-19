@@ -14,7 +14,7 @@
           "fields": [
             {
               "name": "taiwan",
-              "description": "open data of taiwan",
+              "description": "",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -33,14 +33,14 @@
         {
           "kind": "OBJECT",
           "name": "dataType",
-          "description": "set of data",
+          "description": "",
           "fields": [
             {
               "name": "landfill",
-              "description": "Array of landfill data(行政院環保署 垃圾掩埋場資料)",
+              "description": "行政院環保署 垃圾掩埋場資料",
               "args": [
                 {
-                  "name": "name",
+                  "name": "names",
                   "description": null,
                   "type": {
                     "kind": "LIST",
@@ -60,6 +60,47 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "landfill",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "OIPList",
+              "description": "職業傷病防治中心名單",
+              "args": [
+                {
+                  "name": "names",
+                  "description": null,
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "area",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "OIPList",
                   "ofType": null
                 }
               },
@@ -85,11 +126,11 @@
         {
           "kind": "OBJECT",
           "name": "landfill",
-          "description": "One of landfill data",
+          "description": "",
           "fields": [
             {
               "name": "name",
-              "description": "name of landfill(名稱)",
+              "description": "名稱",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -101,7 +142,7 @@
             },
             {
               "name": "id",
-              "description": "id of landfill(管制編號)",
+              "description": "管制編號",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -113,7 +154,7 @@
             },
             {
               "name": "area",
-              "description": "area of landfill(興建面積(公頃))",
+              "description": "興建面積公頃",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -125,7 +166,7 @@
             },
             {
               "name": "operating_unit",
-              "description": "operating unit of landfill(操作單位)",
+              "description": "操作單位",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -137,7 +178,7 @@
             },
             {
               "name": "build_organ",
-              "description": "build organ of landfill(興建主辦機關)",
+              "description": "興建主辦機關",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -149,7 +190,7 @@
             },
             {
               "name": "start_date",
-              "description": "start date of landfill(開工日期)",
+              "description": "開工日期",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -161,7 +202,7 @@
             },
             {
               "name": "address",
-              "description": "address of landfill(地址)",
+              "description": "地址",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -173,7 +214,7 @@
             },
             {
               "name": "end_date",
-              "description": "end date of landfill(完工日期)",
+              "description": "完工日期",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -185,7 +226,7 @@
             },
             {
               "name": "type",
-              "description": "type of landfill(營運型態)",
+              "description": "營運型態",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -197,7 +238,7 @@
             },
             {
               "name": "supervise_organ",
-              "description": "supervise organ of landfill(營運監督機構)",
+              "description": "營運監督機構",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -209,7 +250,7 @@
             },
             {
               "name": "government_processing_capacity",
-              "description": "government processing capacity of landfill(縣府提供年保證處理量(公噸/年))",
+              "description": "縣府提供年保證處理量公噸/年",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -221,7 +262,7 @@
             },
             {
               "name": "company_processing_capacity",
-              "description": "company processing capacity of landfill(一般事業廢棄物廠商保證量(公噸/年))",
+              "description": "一般事業廢棄物廠商保證量公噸/年",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -233,7 +274,7 @@
             },
             {
               "name": "design_processing_capacity",
-              "description": "design processing capacity of landfill(設計處理量(公噸/日))",
+              "description": "設計處理量公噸/日",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -245,7 +286,7 @@
             },
             {
               "name": "environmental_assessment_date",
-              "description": "environmental assessment date of landfill(環評審查公告日期)",
+              "description": "環評審查公告日期",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -257,7 +298,78 @@
             },
             {
               "name": "update_time",
-              "description": "update time of landfill(更新日期)",
+              "description": "更新日期",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OIPList",
+          "description": "",
+          "fields": [
+            {
+              "name": "area",
+              "description": "區域",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "醫院名稱",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "contact_person",
+              "description": "聯絡人",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "contact_phone",
+              "description": "聯絡電話",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "address",
+              "description": "醫院地址",
               "args": [],
               "type": {
                 "kind": "SCALAR",

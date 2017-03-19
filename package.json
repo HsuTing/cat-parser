@@ -27,7 +27,8 @@
     "open data"
   ],
   "pre-commit": [
-    "lint"
+    "lint",
+    "build-graphql"
   ],
   "homepage": "https://github.com/HsuTing/open-data",
   "repository": {
@@ -60,6 +61,7 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-env": "^1.2.1",
     "babel-preset-stage-0": "^6.22.0",
+    "cat-utils": "^0.1.0",
     "graphql": "^0.9.1",
     "koa": "next",
     "koa-better-router": "^2.1.1",
@@ -72,6 +74,7 @@
     "koa-morgan": "^1.0.1",
     "koa-mount": "next",
     "koa-static": "^3.0.0",
+    "node-fetch": "^1.6.3",
     "nodemon": "^1.11.0"
   }
 }

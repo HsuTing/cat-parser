@@ -8,7 +8,7 @@ import {
   GraphQLList,
   GraphQLObjectType
 } from 'graphql';
-import getFields from 'utils/getFields';
+import {getFields} from 'cat-utils/lib/graphql-utils';
 
 export default {
   description: '職業傷病防治中心名單',
@@ -16,11 +16,11 @@ export default {
     names: {
       type: new GraphQLList(GraphQLString)
     },
-    area: {
-      type: GraphQLString
+    areas: {
+      type: new GraphQLList(GraphQLString)
     }
   },
-  resolve: (parent, {names, area}) => new Promise((resolve, reject) => {
+  resolve: (parent, {names, areas}) => new Promise(resolve => {
     fs.readFile(path.resolve(process.cwd(), './public/taiwan/OIPList.json'), (getDataError, originValues = {}) => {
       if(getDataError)
         throw new Error(getDataError);
@@ -54,7 +54,7 @@ export default {
         });
 
         if(names && names.indexOf(output.name) === -1 ||
-          area && output.area !== area)
+          areas && areas.indexOf(output.area) === -1)
           return;
 
         data.push(output);
@@ -63,7 +63,7 @@ export default {
     });
   }),
   type: new GraphQLList(new GraphQLObjectType({
-    description: '',
+    description: '職業傷病防治中心名單',
     name: 'OIPList',
     fields: () => getFields({
       area: '區域',

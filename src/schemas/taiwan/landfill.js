@@ -8,16 +8,16 @@ import {
   GraphQLList,
   GraphQLObjectType
 } from 'graphql';
-import getFields from 'utils/getFields';
+import {getFields} from 'cat-utils/lib/graphql-utils';
 
 export default {
-  description: '行政院環保署 垃圾掩埋場資料',
+  description: '垃圾掩埋場資料',
   args: {
     names: {
       type: new GraphQLList(GraphQLString)
     }
   },
-  resolve: (parent, {names}) => new Promise((resolve, reject) => {
+  resolve: (parent, {names}) => new Promise(resolve => {
     fs.readFile(path.resolve(process.cwd(), './public/taiwan/landfill.json'), (getDataError, originValues = {}) => {
       if(getDataError)
         throw new Error(getDataError);
@@ -34,7 +34,7 @@ export default {
     });
   }),
   type: new GraphQLList(new GraphQLObjectType({
-    description: '',
+    description: '垃圾掩埋場資料',
     name: 'landfill',
     fields: () => getFields({
       name: '名稱',
