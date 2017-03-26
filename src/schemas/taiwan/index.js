@@ -6,7 +6,7 @@ import {
 
 import landfill from './landfill';
 import OIPList from './OIPList';
-import independentMusic from './independentMusic';
+import culture from './culture';
 
 export default {
   description: '',
@@ -17,7 +17,46 @@ export default {
     fields: () => ({
       landfill,
       OIPList,
-      independentMusic
+      independentMusic: culture(
+        'independentMusic',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=5',
+        '文化部獨立音樂'
+      ),
+      election: culture(
+        'election',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=14',
+        '文化部徵選活動'
+      ),
+      varietyShow: culture(
+        'varietyShow',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=11',
+        '文化部綜藝活動'
+      ),
+      movie: culture(
+        'movie',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=8',
+        '文化部電影'
+      ),
+      lecture: culture(
+        'lecture',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=7',
+        '文化部講座資訊'
+      ),
+      exhibition: culture(
+        'exhibition',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6',
+        '文化部展覽資訊'
+      ),
+      concert: culture(
+        'concert',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=17',
+        '文化部演唱會'
+      ),
+      familyActivities: culture(
+        'familyActivities',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=4',
+        '文化部親子活動'
+      )
     })
   })
 };

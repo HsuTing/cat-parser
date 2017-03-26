@@ -8,25 +8,21 @@ import {
 } from 'graphql';
 import {getFields} from 'cat-utils/lib/graphql-utils';
 
-export default {
-  description: '文化部獨立音樂',
+export default (name, url, description) => ({
+  description,
   args: {
     UIDs: {
       type: new GraphQLList(GraphQLString)
-    },
-    categories: {
-      type: new GraphQLList(GraphQLString)
     }
   },
-  resolve: (parent, {UIDs, categories}) => new Promise(resolve => {
-    fetch('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=5')
+  resolve: (parent, {UIDs}) => new Promise(resolve => {
+    fetch(url)
       .then(res => res.json())
       .then(data => {
         const output = [];
 
         data.forEach(item => {
-          if(UIDs && UIDs.indexOf(item.UID) === -1 ||
-            categories && categories.indexOf(item.category) === -1)
+          if(UIDs && UIDs.indexOf(item.UID) === -1)
             return;
 
           output.push(item);
@@ -36,8 +32,8 @@ export default {
       .catch(err => resolve([]));
   }),
   type: new GraphQLList(new GraphQLObjectType({
-    description: '文化部獨立音樂',
-    name: 'independentMusic',
+    description,
+    name,
     fields: () => getFields({
       version: '版本',
       UID: '編碼',
@@ -45,7 +41,7 @@ export default {
       category: '種類',
       showInfo: [{
         description: '表演資訊',
-        name: 'showInfo',
+        name: `${name}_showInfo`,
         fields: () => getFields({
           time: '時間',
           location: '地點',
@@ -77,4 +73,4 @@ export default {
       hitRate: ''
     })
   }))
-};
+});

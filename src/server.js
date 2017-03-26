@@ -43,6 +43,7 @@ app.use(mount('/graphql', convert(graphql({
   formatError: error => {
     //if(!ENV)
     console.log(JSON.stringify(error));
+    return error;
   }
 }))));
 app.use(mount('/data', serve(
