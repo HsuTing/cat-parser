@@ -48,8 +48,16 @@ The details of all fields are in `docs` of `graphql`.
   | name | json | source |
   |------|------|--------|
   | landfill (垃圾掩埋場資料) | `/data/taiwan/landfill.json` | Parse from [website](http://erdb.epa.gov.tw/DataRepository/Facilities/Landfill.aspx?topic1=%E5%9C%B0&topic2=%E6%B1%A1%E6%9F%93%E9%98%B2%E6%B2%BB&subject=%E5%BB%A2%E6%A3%84%E7%89%A9%E8%99%95%E7%90%86) |
-  | OIPList (職業傷病防治中心名單) | `/data/taiwan/OIPList.json` | [Download](http://data.gov.tw/iisi/logaccess/77094?dataUrl=http://apiservice.mol.gov.tw/OdService/download/A17000000J-000003-gnl&ndctype=JSON&ndcnid=5957) |
-  | independentMusic (文化部獨立音樂) | | [Link](https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=5) |
+  | OIPList (職業傷病防治中心名單) | `/data/taiwan/OIPList.json` | [Link](http://data.gov.tw/node/5957) |
+  | independentMusic (文化部獨立音樂) | | [Link](http://data.gov.tw/node/6006) |
+  | election (文化部徵選活動) | | [Link](http://data.gov.tw/node/6007) |
+  | competition (文化部競賽活動) | | [Link](http://data.gov.tw/node/6008) |
+  | varietyShow (文化部綜藝活動) | | [Link](http://data.gov.tw/node/6009) |
+  | movie (文化部電影) | | [Link](http://data.gov.tw/node/6010) |
+  | lecture (文化部講座資訊) | | [Link](http://data.gov.tw/node/6011) |
+  | exhibition (文化部展覽資訊) | | [Link](http://data.gov.tw/node/6012) |
+  | concert (文化部演唱會) | | [Link](http://data.gov.tw/node/6013) |
+  | familyActivities (文化部親子活動) | | [Link](http://data.gov.tw/node/6014) |
 
 ## Relay
 If you need `schema` to use `relay`, you can install this project.

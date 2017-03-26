@@ -27,6 +27,11 @@ export default {
         'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=14',
         '文化部徵選活動'
       ),
+      competition: culture(
+        'competition',
+        'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=13',
+        '文化部競賽活動'
+      ),
       varietyShow: culture(
         'varietyShow',
         'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=11',

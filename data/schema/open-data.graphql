@@ -1,16 +1,5 @@
-type dataType {
-  # 垃圾掩埋場資料
-  landfill(names: [String]): [landfill]
-
-  # 職業傷病防治中心名單
-  OIPList(names: [String], areas: [String]): [OIPList]
-
-  # 文化部獨立音樂
-  independentMusic(UIDs: [String], categories: [String]): [independentMusic]
-}
-
-# 文化部獨立音樂
-type independentMusic {
+# 文化部演唱會
+type concert {
   # 版本
   version: String
 
@@ -24,7 +13,7 @@ type independentMusic {
   category: String
 
   # 表演資訊
-  showInfo: [showInfo]
+  showInfo: [concert_showInfo]
 
   # 表演團體
   showUnit: String
@@ -61,6 +50,389 @@ type independentMusic {
   # 總數
   total: String
   hitRate: String
+}
+
+# 表演資訊
+type concert_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
+}
+
+type dataType {
+  # 垃圾掩埋場資料
+  landfill(names: [String]): [landfill]
+
+  # 職業傷病防治中心名單
+  OIPList(names: [String], areas: [String]): [OIPList]
+
+  # 文化部獨立音樂
+  independentMusic(UIDs: [String]): [independentMusic]
+
+  # 文化部徵選活動
+  election(UIDs: [String]): [election]
+
+  # 文化部綜藝活動
+  varietyShow(UIDs: [String]): [varietyShow]
+
+  # 文化部電影
+  movie(UIDs: [String]): [movie]
+
+  # 文化部講座資訊
+  lecture(UIDs: [String]): [lecture]
+
+  # 文化部展覽資訊
+  exhibition(UIDs: [String]): [exhibition]
+
+  # 文化部演唱會
+  concert(UIDs: [String]): [concert]
+
+  # 文化部親子活動
+  familyActivities(UIDs: [String]): [familyActivities]
+}
+
+# 文化部徵選活動
+type election {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [election_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 表演資訊
+type election_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
+}
+
+# 文化部展覽資訊
+type exhibition {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [exhibition_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 表演資訊
+type exhibition_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
+}
+
+# 文化部親子活動
+type familyActivities {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [familyActivities_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 表演資訊
+type familyActivities_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
+}
+
+# 文化部獨立音樂
+type independentMusic {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [independentMusic_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 表演資訊
+type independentMusic_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
 }
 
 # 垃圾掩埋場資料
@@ -111,6 +483,168 @@ type landfill {
   update_time: String
 }
 
+# 文化部講座資訊
+type lecture {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [lecture_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 表演資訊
+type lecture_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
+}
+
+# 文化部電影
+type movie {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [movie_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
+# 表演資訊
+type movie_showInfo {
+  # 時間
+  time: String
+
+  # 地點
+  location: String
+
+  # 地點名字
+  locationName: String
+
+  # 是否售票中
+  onSales: String
+
+  # 票價
+  price: String
+
+  # 緯度
+  latitude: String
+
+  # 經度
+  longitude: String
+
+  # 結束時間
+  endTime: String
+}
+
 # 職業傷病防治中心名單
 type OIPList {
   # 區域
@@ -134,8 +668,62 @@ type Query {
   taiwan: dataType
 }
 
+# 文化部綜藝活動
+type varietyShow {
+  # 版本
+  version: String
+
+  # 編碼
+  UID: String
+
+  # 標題
+  title: String
+
+  # 種類
+  category: String
+
+  # 表演資訊
+  showInfo: [varietyShow_showInfo]
+
+  # 表演團體
+  showUnit: String
+  discountInfo: String
+
+  # 簡介
+  descriptionFilterHtml: String
+
+  # 圖片連結
+  imageUrl: String
+  masterUnit: String
+  subUnit: String
+  supportUnit: String
+  otherUnit: String
+
+  # 售票網站
+  webSales: String
+  sourceWebPromote: String
+
+  # 評論
+  comment: String
+  editModifyDate: String
+  sourceWebName: String
+
+  # 開始日期
+  startDate: String
+
+  # 結束日期
+  endDate: String
+
+  # 狀態
+  status: String
+
+  # 總數
+  total: String
+  hitRate: String
+}
+
 # 表演資訊
-type showInfo {
+type varietyShow_showInfo {
   # 時間
   time: String
 
