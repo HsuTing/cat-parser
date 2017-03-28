@@ -8,14 +8,20 @@ import {
 } from 'graphql';
 import {getFields} from 'cat-utils/lib/graphql-utils';
 
+import geo from 'schemas/geo';
+import filterGeo from 'utils/filterGeo';
+
 export default (name, url, description) => ({
   description,
   args: {
+    geo: geo(`tw_${name}`, 'chi'),
     UIDs: {
       type: new GraphQLList(GraphQLString)
     }
   },
-  resolve: (parent, {UIDs}) => new Promise(resolve => {
+  resolve: (parent, {geo, UIDs}) => new Promise(resolve => {
+    const geoValue = parent.geo || geo;
+
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -24,6 +30,25 @@ export default (name, url, description) => ({
         data.forEach(item => {
           if(UIDs && UIDs.indexOf(item.UID) === -1)
             return;
+
+          if(geoValue) {
+            let showInfo = [];
+
+            item.showInfo.forEach(d => {
+              const check = filterGeo({
+                latitude: d.latitude,
+                longitude: d.longitude
+              }, geoValue);
+
+              if(check)
+                showInfo.push(d);
+            });
+
+            if(showInfo.length === 0)
+              return;
+            else
+              item.showInfo = showInfo;
+          }
 
           output.push(item);
         });

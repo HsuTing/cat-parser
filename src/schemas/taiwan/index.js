@@ -4,16 +4,23 @@ import {
   GraphQLObjectType
 } from 'graphql';
 
+import geo from 'schemas/geo';
+
 import landfill from './landfill';
 import OIPList from './OIPList';
 import culture from './culture';
 
 export default {
-  description: '',
-  resolve: () => ({}),
+  description: '台灣政府開放資料',
+  args: {
+    geo: geo('taiwan', 'chi')
+  },
+  resolve: (parent, {geo}) => {
+    return geo ? {geo} : {};
+  },
   type: new GraphQLObjectType({
-    name: 'dataType',
-    description: '',
+    name: 'taiwan',
+    description: '台灣政府開放資料',
     fields: () => ({
       landfill,
       OIPList,
