@@ -2,17 +2,17 @@
 
 import fs from 'fs';
 import process from 'process';
-import zlib from 'zlib';
 import path from 'path';
+import zlib from 'zlib';
 import Koa from 'koa';
 import morgan from 'koa-morgan';
 import helmet from 'koa-helmet';
 import compress from 'koa-compress';
 import etag from 'koa-etag';
+import body from 'koa-body';
 import mount from 'koa-mount';
-import convert from 'koa-convert';
 import graphql from 'koa-graphql';
-import serve from 'koa-static';
+
 import schema from 'schemas/schema';
 
 const app = new Koa();
@@ -32,25 +32,31 @@ else
   app.use(morgan('dev'));
 app.use(helmet());
 app.use(etag());
+app.use(body());
 app.use(compress({
   threshold: 2048,
   flush: zlib.Z_SYNC_FLUSH
 }));
-app.use(mount('/graphql', convert(graphql({
+
+app.use(mount('/graphql', graphql({
   schema,
-  graphiql: !ENV || true,
-  pretty: !ENV || true,
+  graphiql: !ENV,
+  pretty: !ENV,
   formatError: error => {
-    //if(!ENV)
-    console.log(JSON.stringify(error));
-    return error;
+    console.log(error);
+    if(!ENV)
+      return error;
   }
-}))));
-app.use(mount('/data', serve(
-  path.resolve(root, 'public')
-)));
+})));
+
+// add router
+fs.readdirSync(path.resolve(__dirname, './routers'))
+  .forEach(router => {
+    const routerPath = `./routers/${router.replace('.js', '')}`;
+    app.use(
+      (require(routerPath).default || require(routerPath)).middleware()
+    );
+  });
 
 // setting
-app.listen(ENV ? process.env.PORT : 8000, () => {
-  console.log('server start');
-});
+export default app.listen(ENV ? process.env.PORT : 8000);

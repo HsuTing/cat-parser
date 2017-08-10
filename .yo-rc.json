@@ -1,24 +1,28 @@
 {
   "generator-cat": {
     "promptValues": {
-      "authorName": "hsuting",
+      "authorName": "HsuTing",
       "authorEmail": "hsuting0106@gmail.com",
       "authorUrl": "http://hsuting.com",
-      "type": [
-        "server",
-        "graphql",
-        "npm",
+      "website": false,
+      "chooseType": "server",
+      "graphql": true,
+      "plugins": [
         "heroku"
-      ]
+      ],
+      "server": false
     },
     "plugins": [
-      "graphql",
-      "heroku"
+      "heroku",
+      "server",
+      "test",
+      "graphql"
     ],
     "alias": {
+      "routers": "routers",
       "schemas": "schemas",
-      "routes": "routes",
-      "middleware": "middleware"
-    }
+      "utils": "utils"
+    },
+    "cat": true
   }
 }

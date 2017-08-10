@@ -8,11 +8,9 @@
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
+        "routers": "routers",
         "schemas": "schemas",
-        "routes": "routes",
-        "middleware": "middleware",
-        "utils": "utils",
-        "utilsTaiwan": "utils/taiwan"
+        "utils": "utils"
       }
     }]
   ]
