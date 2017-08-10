@@ -4,7 +4,6 @@
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
     "babel:watch": "rm -rf ./lib && babel -w src --out-dir lib",
-    "test": "yarn babel && istanbul cover _mocha -- -R spec test/**/*.js",
     "test-server": "nodemon ./lib/server.js",
     "start": "NODE_ENV=production node ./lib/server.js",
     "build": "yarn babel",
