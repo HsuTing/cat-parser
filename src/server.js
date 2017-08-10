@@ -49,14 +49,5 @@ app.use(mount('/graphql', graphql({
   }
 })));
 
-// add router
-fs.readdirSync(path.resolve(__dirname, './routers'))
-  .forEach(router => {
-    const routerPath = `./routers/${router.replace('.js', '')}`;
-    app.use(
-      (require(routerPath).default || require(routerPath)).middleware()
-    );
-  });
-
 // setting
 export default app.listen(ENV ? process.env.PORT : 8000);

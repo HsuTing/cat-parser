@@ -11,12 +11,12 @@ import fields from 'schemas/fields';
 const {nodeInterface} = fields;
 
 export const dataFields = {
-  name: 'Data',
-  description: 'This is the type of the Data.',
+  name: 'WaterOutage',
+  description: 'This is the type of the WaterOutage.',
   fields: {
     data: {
       type: GraphQLString,
-      description: 'This is the data of the Data.'
+      description: 'This is the data of the WaterOutage.'
     }
   }
 };
@@ -26,6 +26,6 @@ export default new GraphQLObjectType({
   interfaces: [nodeInterface],
   fields: {
     ...dataFields.fields,
-    id: globalIdField('Data')
+    id: globalIdField('WaterOutage')
   }
 });
