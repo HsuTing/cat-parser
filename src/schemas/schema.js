@@ -27,7 +27,7 @@ fs.readdirSync(__dirname)
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
-    description: 'all queries',
+    description: '所有的資料來源皆來自於政府開放平台 http://data.gov.tw/',
     fields: query
   })
 });

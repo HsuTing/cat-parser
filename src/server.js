@@ -1,5 +1,6 @@
 'use strict';
 
+import 'babel-polyfill';
 import fs from 'fs';
 import process from 'process';
 import path from 'path';
