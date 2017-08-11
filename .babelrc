@@ -10,6 +10,7 @@
       "alias": {
         "routers": "routers",
         "schemas": "schemas",
+        "interfaces": "interfaces",
         "utils": "utils"
       }
     }]

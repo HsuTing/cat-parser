@@ -2,7 +2,8 @@
 
 import {
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString,
+  GraphQLFloat
 } from 'graphql';
 import {
   globalIdField,
@@ -15,12 +16,15 @@ import fields from 'schemas/fields';
 
 const {nodeInterface} = fields;
 
-const dataType = new GraphQLObjectType({
+export const dataType = new GraphQLObjectType({
   name: 'AirQualityMonitoringStation',
   description: '空氣品質監測站基本資料',
   interfaces: [nodeInterface],
   fields: {
-    id: globalIdField('AirQualityMonitoringStation'),
+    id: globalIdField(
+      'AirQualityMonitoringStation',
+      ({SiteEngName}) => `AirQualityMonitoringStation-${SiteEngName}`
+    ),
     siteName: {
       type: GraphQLString,
       description: '測站名稱',
@@ -56,16 +60,15 @@ const dataType = new GraphQLObjectType({
       description: '測站類型',
       resolve: ({SiteType}) => SiteType
     },
-    // TODO
     lon: {
-      type: GraphQLString,
+      type: GraphQLFloat,
       description: '經度',
-      resolve: ({TWD97Lon}) => TWD97Lon
+      resolve: ({TWD97Lon}) => parseFloat(TWD97Lon)
     },
     lat: {
-      type: GraphQLString,
+      type: GraphQLFloat,
       description: '緯度',
-      resolve: ({TWD97Lat}) => TWD97Lat
+      resolve: ({TWD97Lat}) => parseFloat(TWD97Lat)
     }
   }
 });

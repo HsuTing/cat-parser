@@ -1,6 +1,9 @@
 'use strict';
 
+import {getDistance} from 'geolib';
+
 import fetch from 'utils/fetch';
+import {args as geoArgs} from 'schemas/geo/definitions';
 
 import dataType from './dataType';
 
@@ -15,15 +18,27 @@ export default {
   資料來源：http://data.gov.tw/node/6075
   `,
   type: dataType,
-  resolve: async () => {
+  args: geoArgs,
+  resolve: async (parent, args) => {
+    const {geo} = parent || args;
     try {
-      return (await fetch(
+      const data = await fetch(
         'AirQualityMonitoringStation',
         'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
-      )).map(data => ({
-        id: `AirQualityMonitoringStation-${data.SiteEngName}`,
-        ...data
-      }));
+      );
+
+      if(geo) {
+        const {lon, lat, range} = geo;
+
+        return data.filter(({TWD97Lon, TWD97Lat}) => {
+          return getDistance(
+            {latitude: lat, longitude: lon},
+            {latitude: parseFloat(TWD97Lat), longitude: parseFloat(TWD97Lon)}
+          ) < range;
+        });
+      }
+
+      return data;
     } catch(e) {
       console.log(e);
       return [];

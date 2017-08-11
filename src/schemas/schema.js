@@ -7,7 +7,14 @@ import {
   GraphQLObjectType
 } from 'graphql';
 
-let query = {};
+import fields from 'schemas/fields';
+
+const {nodeField, nodesField} = fields;
+
+let query = {
+  node: nodeField,
+  nodes: nodesField
+};
 
 fs.readdirSync(__dirname)
   .filter(file => !(file[0] === '.' || file === 'schema.js'))
