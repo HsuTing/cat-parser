@@ -40,8 +40,8 @@ app.use(compress({
 
 app.use(graphql({
   schema,
-  graphiql: !ENV,
-  pretty: !ENV,
+  graphiql: true,
+  pretty: true,
   formatError: error => {
     console.log(error);
     if(!ENV)
