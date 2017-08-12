@@ -11,7 +11,6 @@ import helmet from 'koa-helmet';
 import compress from 'koa-compress';
 import etag from 'koa-etag';
 import body from 'koa-body';
-import mount from 'koa-mount';
 import graphql from 'koa-graphql';
 
 import schema from 'schemas/schema';
@@ -39,7 +38,7 @@ app.use(compress({
   flush: zlib.Z_SYNC_FLUSH
 }));
 
-app.use(mount('/graphql', graphql({
+app.use(graphql({
   schema,
   graphiql: !ENV,
   pretty: !ENV,
@@ -48,7 +47,7 @@ app.use(mount('/graphql', graphql({
     if(!ENV)
       return error;
   }
-})));
+}));
 
 // setting
 export default app.listen(ENV ? process.env.PORT : 8000);

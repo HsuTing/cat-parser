@@ -1,0 +1,13 @@
+
+language: node_js
+node_js:
+  - "node"
+script:
+  - yarn lint
+  - yarn build
+  - yarn prod
+branches:
+only:
+  - master
+cache:
+yarn: true
