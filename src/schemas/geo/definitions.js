@@ -5,6 +5,7 @@ import {
   GraphQLInputObjectType,
   GraphQLFloat
 } from 'graphql';
+import {getDistance} from 'geolib';
 
 export const args = {
   geo: {
@@ -26,5 +27,35 @@ export const args = {
         }
       }
     })
+  }
+};
+
+export const resolve = (
+  getData = () => {},
+  keys = {
+    latKey: 'lat',
+    lonKey: 'lon'
+  }
+) => async (parent, args, ctx)  => {
+  try {
+    const {geo} = Object.keys(args).length === 0 ? parent : args;
+    const {latKey, lonKey} = keys;
+    const data = await getData(parent, args, ctx);
+
+    if(geo) {
+      const {lon, lat, range} = geo;
+
+      return data.filter(d => {
+        return getDistance(
+          {latitude: lat, longitude: lon},
+          {latitude: parseFloat(d[latKey]), longitude: parseFloat(d[lonKey])}
+        ) < range;
+      });
+    }
+
+    return data;
+  } catch(e) {
+    console.log(e);
+    return [];
   }
 };

@@ -1,9 +1,10 @@
 'use strict';
 
-import {getDistance} from 'geolib';
-
 import fetch from 'utils/fetch';
-import {args as geoArgs} from 'schemas/geo/definitions';
+import {
+  args as geoArgs,
+  resolve as geoResolve
+} from 'schemas/geo/definitions';
 
 import dataType from './dataType';
 
@@ -19,29 +20,13 @@ export default {
   `,
   type: dataType,
   args: geoArgs,
-  resolve: async (parent, args) => {
-    const {geo} = parent || args;
-    try {
-      const data = await fetch(
-        'AirQualityMonitoringStation',
-        'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
-      );
-
-      if(geo) {
-        const {lon, lat, range} = geo;
-
-        return data.filter(({TWD97Lon, TWD97Lat}) => {
-          return getDistance(
-            {latitude: lat, longitude: lon},
-            {latitude: parseFloat(TWD97Lat), longitude: parseFloat(TWD97Lon)}
-          ) < range;
-        });
-      }
-
-      return data;
-    } catch(e) {
-      console.log(e);
-      return [];
+  resolve: geoResolve(
+    () => fetch(
+      'AirQualityMonitoringStation',
+      'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
+    ), {
+      latKey: 'TWD97Lat',
+      lonKey: 'TWD97Lon'
     }
-  }
+  )
 };
