@@ -5,7 +5,7 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "test": "node ./test-server.js",
+    "test": "yarn babel && node ./test-server.js",
     "lint": "eslint --cache ./src ./bin --ext .js",
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
