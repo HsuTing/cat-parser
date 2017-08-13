@@ -10,30 +10,35 @@ import {
   checkUpdated
 } from './db';
 
-export default (name = '', link = '') => {
-  const time = getData('time') || {};
-  const check = !time[name] || checkUpdated(name, time[name]);
-  let data = getData(name);
+export default async (name = '', link = '') => {
+  try {
+    const time = await getData('time') || {};
+    const check = !time[name] || checkUpdated(name, time[name]);
+    let data = await getData(name);
 
-  if(!data || check) {
-    if(!data) {
-      console.log(chalk.cyan(`[db] can not get "${name}" from db.`));
-      console.log(chalk.cyan('[db] fetch data from the website.'));
-    } else if(check) {
-      console.log(chalk.cyan(`[db] update "${name}".`));
+    if(!data || check) {
+      if(!data) {
+        console.log(chalk.cyan(`[db] can not get "${name}" from db.`));
+        console.log(chalk.cyan('[db] fetch data from the website.'));
+      } else if(check) {
+        console.log(chalk.cyan(`[db] update "${name}".`));
 
-      time[name] = moment().format();
-      writeFile('time', time);
+        time[name] = moment().format();
+        writeFile('time', time);
+      }
+
+      fetch(link)
+        .then(res => res.json())
+        .then(data => writeFile(name, data))
+        .catch(e => console.log(e));
     }
 
-    fetch(link)
-      .then(res => res.json())
-      .then(data => writeFile(name, data))
-      .catch(e => console.log(e));
+    return {
+      updateTime: time[name],
+      data
+    };
+  } catch(e) {
+    console.log(e);
+    return {};
   }
-
-  return {
-    updateTime: time[name],
-    data
-  };
 };

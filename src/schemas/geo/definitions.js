@@ -47,7 +47,7 @@ export const resolve = (
 
       return {
         updateTime,
-        data: data.filter(d => getDistance(
+        data: (data || []).filter(d => getDistance(
           {latitude: lat, longitude: lon},
           {latitude: parseFloat(d[latKey]), longitude: parseFloat(d[lonKey])}
         ) < range)
