@@ -12,7 +12,7 @@ import {
   connectionFromArray
 } from 'graphql-relay';
 
-import fields from 'schemas/fields';
+import fields, {updateTime} from 'schemas/fields';
 
 const {nodeInterface} = fields;
 
@@ -82,11 +82,12 @@ export default new GraphQLObjectType({
   interfaces: [nodeInterface],
   fields: {
     id: globalIdField('AirQualityMonitoringStationGroup'),
+    updateTime: updateTime('AirQualityMonitoringStation'),
     airQualityMonitoringStationGroup: {
       type: airQualityMonitoringStationConnection,
       description: '空氣品質監測站基本資料集合(type)',
       args: connectionArgs,
-      resolve: (data, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || [], args)
     }
   }
 });

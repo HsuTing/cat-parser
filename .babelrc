@@ -8,10 +8,9 @@
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
-        "routers": "routers",
         "schemas": "schemas",
-        "interfaces": "interfaces",
-        "utils": "utils"
+        "utils": "utils",
+        "constants": "constants"
       }
     }]
   ]

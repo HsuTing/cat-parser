@@ -1,9 +1,13 @@
 'use strict';
 
 import {
+  GraphQLString
+} from 'graphql';
+import {
   nodeDefinitions,
   fromGlobalId
 } from 'graphql-relay';
+import moment from 'moment';
 
 export default nodeDefinitions(
   (globalId, ctx) => {
@@ -18,3 +22,19 @@ export default nodeDefinitions(
     return null;
   }
 );
+
+export const updateTime = (name = 'data') => ({
+  type: GraphQLString,
+  description: '更新時間',
+  args: {
+    updateTimeFormat: {
+      type: GraphQLString,
+      description: '更新時間顯示格式'
+    }
+  },
+  resolve: ({updateTime}, {updateTimeFormat}) => (
+    updateTimeFormat ?
+      moment(updateTime).format(updateTimeFormat) :
+      moment(updateTime).format('MMMM Do YYYY, HH:mm:ss')
+  )
+});

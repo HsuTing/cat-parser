@@ -1,27 +1,39 @@
 'use strict';
 
 import fetch from 'node-fetch';
+import chalk from 'chalk';
+import moment from 'moment';
 
 import {
+  getData,
   writeFile,
-  getLocalData
-} from './local-test';
+  checkUpdated
+} from './db';
 
-export default async (name = '', link = '') => {
-  try {
-    let data = getLocalData(name)
+export default (name = '', link = '') => {
+  const time = getData('time') || {};
+  const check = !time[name] || checkUpdated(name, time[name]);
+  let data = getData(name);
 
+  if(!data || check) {
     if(!data) {
-      const res = await fetch(link);
+      console.log(chalk.cyan(`[db] can not get "${name}" from db.`));
+      console.log(chalk.cyan('[db] fetch data from the website.'));
+    } else if(check) {
+      console.log(chalk.cyan(`[db] update "${name}".`));
 
-      data = await res.json();
+      time[name] = moment().format();
+      writeFile('time', time);
     }
 
-    writeFile(name, data);
-
-    return data;
-  } catch(e) {
-    console.log(e);
-    return null;
+    fetch(link)
+      .then(res => res.json())
+      .then(data => writeFile(name, data))
+      .catch(e => console.log(e));
   }
+
+  return {
+    updateTime: time[name],
+    data
+  };
 };

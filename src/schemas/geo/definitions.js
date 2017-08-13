@@ -40,20 +40,24 @@ export const resolve = (
   try {
     const {geo} = Object.keys(args).length === 0 ? parent : args;
     const {latKey, lonKey} = keys;
-    const data = await getData(parent, args, ctx);
+    const {updateTime, data} = await getData(parent, args, ctx);
 
     if(geo) {
       const {lon, lat, range} = geo;
 
-      return data.filter(d => {
-        return getDistance(
+      return {
+        updateTime,
+        data: data.filter(d => getDistance(
           {latitude: lat, longitude: lon},
           {latitude: parseFloat(d[latKey]), longitude: parseFloat(d[lonKey])}
-        ) < range;
-      });
+        ) < range)
+      };
     }
 
-    return data;
+    return {
+      updateTime,
+      data
+    };
   } catch(e) {
     console.log(e);
     return [];
