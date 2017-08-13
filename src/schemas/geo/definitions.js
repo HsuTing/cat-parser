@@ -38,7 +38,7 @@ export const resolve = (
   }
 ) => async (parent, args, ctx)  => {
   try {
-    const {geo} = Object.keys(args).length === 0 ? parent : args;
+    const {geo} = Object.keys(args).length === 0 ? parent || {} : args;
     const {latKey, lonKey} = keys;
     const {updateTime, data} = await getData(parent, args, ctx);
 

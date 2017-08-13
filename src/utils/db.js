@@ -33,7 +33,6 @@ export const getData = async (name = 'data') => {
   try {
     if(process.env.NODE_ENV === 'production') {
       const snapshot = await firebase.database().ref(`/${name}/`).once('value');
-      console.log(snapshot.val());
       return snapshot.val();
     }
 
