@@ -4,7 +4,7 @@ import fetch from 'utils/fetch';
 import {
   args as geoArgs,
   resolve as geoResolve
-} from 'schemas/geo/definitions';
+} from 'schemas/geoFields';
 
 import dataType from './dataType';
 
