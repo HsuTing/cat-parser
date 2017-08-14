@@ -8,7 +8,8 @@ import {
 import chalk from 'chalk';
 
 import synonym from 'utils/synonym';
-import countiesObj from 'constants/counties';
+import parseObjEnumType from 'utils/parse-obj-enumType';
+import countiesList from 'constants/counties';
 
 export default key => ({
   county: {
@@ -17,7 +18,7 @@ export default key => ({
     resolve: data => {
       const county = synonym(data[key]);
 
-      if((county).includes(Object.values(countiesObj)))
+      if((county).includes(Object.values(countiesList)))
         console.log(chalk.red(`[graphql] "${county}" is not in counties list.`));
 
       return county;
@@ -25,20 +26,12 @@ export default key => ({
   }
 });
 
-const values = {};
-Object.keys(countiesObj).forEach(county => {
-  values[county] = {
-    value: county,
-    description: countiesObj[county]
-  };
-});
-
 export const args = {
   counties: {
     type: new GraphQLList(new GraphQLEnumType({
       name: 'CountiesInput',
       description: '縣市名稱',
-      values
+      values: parseObjEnumType(countiesList)
     }))
   }
 };
@@ -51,7 +44,7 @@ export const resolve = (
     const {updateTime, data} = await getData(data, args, ctx);
 
     if(counties) {
-      const countiesChiName = counties.map(county => countiesObj[county]);
+      const countiesChiName = counties.map(county => countiesList[county]);
 
       return {
         updateTime,
