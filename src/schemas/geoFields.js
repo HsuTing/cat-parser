@@ -8,11 +8,24 @@ import {
 } from 'graphql';
 import {getDistance} from 'geolib';
 
+export default ({lonKey, latKey}) => ({
+  lon: {
+    type: GraphQLFloat,
+    description: '經度',
+    resolve: data => parseFloat(data[lonKey])
+  },
+  lat: {
+    type: GraphQLFloat,
+    description: '緯度',
+    resolve: data => parseFloat(data[latKey])
+  }
+});
+
 export const args = {
   geo: {
     type: new GraphQLList(new GraphQLInputObjectType({
       name: 'GeoInput',
-      description: '經緯度篩選地理位置',
+      description: '經緯度',
       fields: {
         lon: {
           type: new GraphQLNonNull(GraphQLFloat),
@@ -37,7 +50,7 @@ export const resolve = (
     latKey: 'lat',
     lonKey: 'lon'
   }
-) => async (data, {geo}, ctx)  => {
+) => async (data, {geo}, ctx) => {
   try {
     const {latKey, lonKey} = keys;
     const {updateTime, data} = await getData(data, args, ctx);
@@ -63,6 +76,6 @@ export const resolve = (
     };
   } catch(e) {
     console.log(e);
-    return [];
+    return {};
   }
 };

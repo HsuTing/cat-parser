@@ -2,8 +2,7 @@
 
 import {
   GraphQLObjectType,
-  GraphQLString,
-  GraphQLFloat
+  GraphQLString
 } from 'graphql';
 import {
   globalIdField,
@@ -13,6 +12,9 @@ import {
 } from 'graphql-relay';
 
 import fields, {updateTime} from 'schemas/fields';
+import countyFields from 'schemas/countyFields';
+import townshipFields from 'schemas/townshipFields';
+import geoFields from 'schemas/geoFields';
 
 const {nodeInterface} = fields;
 
@@ -40,16 +42,6 @@ export const dataType = new GraphQLObjectType({
       description: '空品區',
       resolve: ({AreaName}) => AreaName
     },
-    county: {
-      type: GraphQLString,
-      description: '縣市',
-      resolve: ({County}) => County
-    },
-    township: {
-      type: GraphQLString,
-      description: '鄉鎮',
-      resolve: ({Township}) => Township
-    },
     siteAddress: {
       type: GraphQLString,
       description: '測站地址',
@@ -60,16 +52,9 @@ export const dataType = new GraphQLObjectType({
       description: '測站類型',
       resolve: ({SiteType}) => SiteType
     },
-    lon: {
-      type: GraphQLFloat,
-      description: '經度',
-      resolve: ({TWD97Lon}) => parseFloat(TWD97Lon)
-    },
-    lat: {
-      type: GraphQLFloat,
-      description: '緯度',
-      resolve: ({TWD97Lat}) => parseFloat(TWD97Lat)
-    }
+    ...countyFields('County'),
+    ...townshipFields('Township'),
+    ...geoFields({lonKey: 'TWD97Lon', latKey: 'TWD97Lat'})
   }
 });
 

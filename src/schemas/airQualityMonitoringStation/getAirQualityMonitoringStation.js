@@ -5,6 +5,10 @@ import {
   args as geoArgs,
   resolve as geoResolve
 } from 'schemas/geoFields';
+import {
+  args as countyArgs,
+  resolve as countyResolve
+} from 'schemas/countyFields';
 
 import dataType from './dataType';
 
@@ -19,14 +23,25 @@ export default {
   資料來源：http://data.gov.tw/node/6075
   `,
   type: dataType,
-  args: geoArgs,
-  resolve: geoResolve(
-    () => fetch(
-      'AirQualityMonitoringStation',
-      'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
-    ), {
-      latKey: 'TWD97Lat',
-      lonKey: 'TWD97Lon'
-    }
-  )
+  args: {
+    ...geoArgs,
+    ...countyArgs
+  },
+  resolve: async (data, args, ctx) => {
+    const geoData = await geoResolve(
+      () => fetch(
+        'AirQualityMonitoringStation',
+        'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
+      ), {
+        latKey: 'TWD97Lat',
+        lonKey: 'TWD97Lon'
+      }
+    )(data, args, ctx);
+    const countyData = await countyResolve(
+      () => geoData,
+      'County'
+    )(data, args, ctx);
+
+    return countyData;
+  }
 };
