@@ -6,6 +6,7 @@ script:
   - yarn build
   - yarn prod
   - yarn test
+  - yarn getData
 branches:
 only:
   - master

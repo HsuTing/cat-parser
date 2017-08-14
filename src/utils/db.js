@@ -51,7 +51,6 @@ export const writeFile = (name = 'data', data) => {
     JSON.stringify(data, null, 2)
   );
 
-
   fs.commit((err) => {
     if(err)
       console.log(err);

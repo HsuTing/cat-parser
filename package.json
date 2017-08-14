@@ -5,6 +5,7 @@
     "npm": "5.3.0"
   },
   "scripts": {
+    "getData": "node ./bin/get-county-township.js",
     "test": "yarn babel && node ./test-server.js",
     "lint": "eslint --cache ./src ./bin --ext .js",
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
@@ -49,7 +50,8 @@
     "eslint-import-resolver-babel-module": "^3.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-watch": "^3.1.2",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "xml2js": "^0.4.17"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
