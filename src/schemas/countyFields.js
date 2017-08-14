@@ -38,7 +38,7 @@ export const args = {
 
 export const resolve = (
   getData = () => {},
-  key = 'County'
+  key = 'county'
 ) => async (data, {counties}, ctx) => {
   try {
     const {updateTime, data} = await getData(data, args, ctx);

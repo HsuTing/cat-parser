@@ -9,6 +9,10 @@ import {
   args as countyArgs,
   resolve as countyResolve
 } from 'schemas/countyFields';
+import {
+  args as townshipArgs,
+  resolve as townshipResolve
+} from 'schemas/townshipFields';
 
 import dataType from './dataType';
 
@@ -25,7 +29,8 @@ export default {
   type: dataType,
   args: {
     ...geoArgs,
-    ...countyArgs
+    ...countyArgs,
+    ...townshipArgs
   },
   resolve: async (data, args, ctx) => {
     const geoData = await geoResolve(
@@ -41,7 +46,11 @@ export default {
       () => geoData,
       'County'
     )(data, args, ctx);
+    const townshipData = townshipResolve(
+      () => countyData,
+      'Township'
+    )(data, args, ctx);
 
-    return countyData;
+    return townshipData;
   }
 };
