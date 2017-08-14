@@ -2,6 +2,8 @@
 'use strict';
 
 export default {
+  ToufenTownship: "頭份鎮",
+  TaoyuanDistrict: "桃園區",
   ZhongzhengDist: "中正區",
   DatongDist: "大同區",
   ZhongshanDist: "中山區",

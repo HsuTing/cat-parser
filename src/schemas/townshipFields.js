@@ -5,10 +5,10 @@ import {
   GraphQLList,
   GraphQLString
 } from 'graphql';
-import chalk from 'chalk';
 
 import synonym from 'utils/synonym';
 import parseObjEnumType from 'utils/parse-obj-enumType';
+import notIncluded from 'utils/notIncluded';
 import townshipsList from 'constants/townships';
 
 export default key => ({
@@ -18,8 +18,8 @@ export default key => ({
     resolve: data => {
       const township = synonym(data[key]);
 
-      if((township).includes(Object.values(townshipsList)))
-        console.log(chalk.red(`[graphql] "${township}" is not in townships list.`));
+      if(!Object.values(townshipsList).includes(township))
+        notIncluded(`[graphql] "${township}" is not in townships list.`);
 
       return township;
     }
@@ -49,7 +49,7 @@ export const resolve = (
       return {
         updateTime,
         data: (data || []).filter(d => {
-          return (synonym(d[key])).includes(townshipsChiName)
+          return townshipsChiName.includes(synonym(d[key]))
         })
       };
     }

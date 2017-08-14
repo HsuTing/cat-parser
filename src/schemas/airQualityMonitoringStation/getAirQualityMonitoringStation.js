@@ -1,6 +1,12 @@
 'use strict';
 
+import {
+  GraphQLEnumType,
+  GraphQLList
+} from 'graphql';
+
 import fetch from 'utils/fetch';
+import parseObjEnumType from 'utils/parse-obj-enumType';
 import {
   args as geoArgs,
   resolve as geoResolve
@@ -15,6 +21,7 @@ import {
 } from 'schemas/townshipFields';
 
 import dataType from './dataType';
+import {areaNamesList, siteTypesList} from './constants';
 
 export default {
   description: `
@@ -30,9 +37,23 @@ export default {
   args: {
     ...geoArgs,
     ...countyArgs,
-    ...townshipArgs
+    ...townshipArgs,
+    areaNames: {
+      type: new GraphQLList(new GraphQLEnumType({
+        name: 'AreaNamesInput',
+        description: '空品區',
+        values: parseObjEnumType(areaNamesList)
+      }))
+    },
+    siteTypes: {
+      type: new GraphQLList(new GraphQLEnumType({
+        name: 'SiteTypesInput',
+        description: '測站類型',
+        values: parseObjEnumType(siteTypesList)
+      }))
+    }
   },
-  resolve: async (data, args, ctx) => {
+  resolve: async (data, {areaNames, siteTypes, ...args}, ctx) => {
     const geoData = await geoResolve(
       () => fetch(
         'AirQualityMonitoringStation',
@@ -46,11 +67,35 @@ export default {
       () => geoData,
       'County'
     )(data, args, ctx);
-    const townshipData = townshipResolve(
+    const townshipData = await townshipResolve(
       () => countyData,
       'Township'
     )(data, args, ctx);
 
-    return townshipData;
+    let newData = {...townshipData};
+
+    if(areaNames) {
+      const areaNamesChiName = areaNames.map(key => areaNamesList[key]);
+
+      newData = {
+        ...newData,
+        data: (newData.data || []).filter(({AreaName}) => {
+          return areaNamesChiName.includes(AreaName);
+        })
+      };
+    }
+
+    if(siteTypes) {
+      const siteTypesChiName = siteTypes.map(key => siteTypesList[key]);
+
+      newData = {
+        ...newData,
+        data: (newData.data || []).filter(({SiteType}) => {
+          return siteTypesChiName.includes(SiteType);
+        })
+      };
+    }
+
+    return newData;
   }
 };

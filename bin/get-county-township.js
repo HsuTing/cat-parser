@@ -12,7 +12,10 @@ const store = memFs.create();
 const fs = editor.create(store);
 const root = path.resolve(__dirname, './../src/constants');
 const counties = {};
-const townships = {};
+const townships = {
+  ToufenTownship: '頭份鎮',
+  TaoyuanDistrict: '桃園區'
+};
 
 const content = list => `
 'use strict';

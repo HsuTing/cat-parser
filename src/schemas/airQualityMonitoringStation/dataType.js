@@ -11,10 +11,13 @@ import {
   connectionFromArray
 } from 'graphql-relay';
 
+import notIncluded from 'utils/notIncluded';
 import fields, {updateTime} from 'schemas/fields';
 import countyFields from 'schemas/countyFields';
 import townshipFields from 'schemas/townshipFields';
 import geoFields from 'schemas/geoFields';
+
+import {areaNamesList, siteTypesList} from './constants';
 
 const {nodeInterface} = fields;
 
@@ -40,7 +43,12 @@ export const dataType = new GraphQLObjectType({
     areaName: {
       type: GraphQLString,
       description: '空品區',
-      resolve: ({AreaName}) => AreaName
+      resolve: ({AreaName}) => {
+        if(!Object.values(areaNamesList).includes(AreaName))
+          notIncluded(`[graphql] "${AreaName}" is not in areaNames list.`);
+
+        return AreaName;
+      }
     },
     siteAddress: {
       type: GraphQLString,
@@ -50,7 +58,12 @@ export const dataType = new GraphQLObjectType({
     siteType: {
       type: GraphQLString,
       description: '測站類型',
-      resolve: ({SiteType}) => SiteType
+      resolve: ({SiteType}) => {
+        if(!Object.values(siteTypesList).includes(SiteType))
+          notIncluded(`[graphql] "${SiteType}" is not in siteTypes list.`);
+
+        return SiteType;
+      }
     },
     ...countyFields('County'),
     ...townshipFields('Township'),

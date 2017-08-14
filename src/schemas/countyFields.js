@@ -5,10 +5,10 @@ import {
   GraphQLList,
   GraphQLString
 } from 'graphql';
-import chalk from 'chalk';
 
 import synonym from 'utils/synonym';
 import parseObjEnumType from 'utils/parse-obj-enumType';
+import notIncluded from 'utils/notIncluded';
 import countiesList from 'constants/counties';
 
 export default key => ({
@@ -18,8 +18,8 @@ export default key => ({
     resolve: data => {
       const county = synonym(data[key]);
 
-      if((county).includes(Object.values(countiesList)))
-        console.log(chalk.red(`[graphql] "${county}" is not in counties list.`));
+      if(!Object.values(countiesList).includes(county))
+        notIncluded(`[graphql] "${county}" is not in counties list.`);
 
       return county;
     }
@@ -49,7 +49,7 @@ export const resolve = (
       return {
         updateTime,
         data: (data || []).filter(d => {
-          return (synonym(d[key])).includes(countiesChiName)
+          return countiesChiName.includes(synonym(d[key]))
         })
       };
     }
