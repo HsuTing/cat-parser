@@ -1,6 +1,7 @@
 'use strict';
 
 import {
+  GraphQLNonNull,
   GraphQLString
 } from 'graphql';
 import {
@@ -24,7 +25,7 @@ export default nodeDefinitions(
 );
 
 export const updateTime = (name = 'data') => ({
-  type: GraphQLString,
+  type: new GraphQLNonNull(GraphQLString),
   description: '更新時間',
   args: {
     updateTimeFormat: {

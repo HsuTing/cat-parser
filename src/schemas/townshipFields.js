@@ -1,6 +1,7 @@
 'use strict';
 
 import {
+  GraphQLNonNull,
   GraphQLEnumType,
   GraphQLList,
   GraphQLString
@@ -13,7 +14,7 @@ import townshipsList from 'constants/townships';
 
 export default key => ({
   township: {
-    type: GraphQLString,
+    type: new GraphQLNonNull(GraphQLString),
     description: '鄉鎮',
     resolve: data => {
       const township = synonym(data[key]);

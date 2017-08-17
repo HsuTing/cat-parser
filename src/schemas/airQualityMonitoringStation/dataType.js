@@ -1,6 +1,7 @@
 'use strict';
 
 import {
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString
 } from 'graphql';
@@ -31,17 +32,17 @@ export const dataType = new GraphQLObjectType({
       ({SiteEngName}) => `AirQualityMonitoringStation-${SiteEngName}`
     ),
     siteName: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: '測站名稱',
       resolve: ({SiteName}) => SiteName
     },
     siteEngName: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: '測站英文名稱',
       resolve: ({SiteEngName}) => SiteEngName
     },
     areaName: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: '空品區',
       resolve: ({AreaName}) => {
         if(!Object.values(areaNamesList).includes(AreaName))
@@ -51,12 +52,12 @@ export const dataType = new GraphQLObjectType({
       }
     },
     siteAddress: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: '測站地址',
       resolve: ({SiteAddress}) => SiteAddress
     },
     siteType: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: '測站類型',
       resolve: ({SiteType}) => {
         if(!Object.values(siteTypesList).includes(SiteType))

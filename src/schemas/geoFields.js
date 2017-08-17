@@ -10,12 +10,12 @@ import {getDistance} from 'geolib';
 
 export default ({lonKey, latKey}) => ({
   lon: {
-    type: GraphQLFloat,
+    type: new GraphQLNonNull(GraphQLFloat),
     description: '經度',
     resolve: data => parseFloat(data[lonKey])
   },
   lat: {
-    type: GraphQLFloat,
+    type: new GraphQLNonNull(GraphQLFloat),
     description: '緯度',
     resolve: data => parseFloat(data[latKey])
   }

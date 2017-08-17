@@ -1,6 +1,7 @@
 'use strict';
 
 import {
+  GraphQLNonNull,
   GraphQLEnumType,
   GraphQLList,
   GraphQLString
@@ -13,7 +14,7 @@ import countiesList from 'constants/counties';
 
 export default key => ({
   county: {
-    type: GraphQLString,
+    type: new GraphQLNonNull(GraphQLString),
     description: '縣市',
     resolve: data => {
       const county = synonym(data[key]);
