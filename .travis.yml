@@ -4,7 +4,6 @@ node_js:
 script:
   - yarn lint
   - yarn build
-  - yarn prod
   - yarn test
   - yarn getData
 branches:
