@@ -41,12 +41,7 @@ app.use(compress({
 app.use(graphql({
   schema,
   graphiql: true,
-  pretty: true,
-  formatError: error => {
-    console.log(error);
-    if(!ENV)
-      return error;
-  }
+  pretty: true
 }));
 
 // setting

@@ -22,54 +22,55 @@ import {areaNamesList, siteTypesList} from './constants';
 
 const {nodeInterface} = fields;
 
+export const dataFields = {
+  id: globalIdField(
+    'AirQualityMonitoringStation',
+    ({SiteEngName}) => `AirQualityMonitoringStation-${SiteEngName}`
+  ),
+  siteName: {
+    type: new GraphQLNonNull(GraphQLString),
+    description: '測站名稱',
+    resolve: ({SiteName}) => SiteName
+  },
+  siteEngName: {
+    type: new GraphQLNonNull(GraphQLString),
+    description: '測站英文名稱',
+    resolve: ({SiteEngName}) => SiteEngName
+  },
+  areaName: {
+    type: new GraphQLNonNull(GraphQLString),
+    description: '空品區',
+    resolve: ({AreaName}) => {
+      if(!Object.values(areaNamesList).includes(AreaName))
+        notIncluded(`[graphql] "${AreaName}" is not in areaNames list.`);
+
+      return AreaName;
+    }
+  },
+  siteAddress: {
+    type: new GraphQLNonNull(GraphQLString),
+    description: '測站地址',
+    resolve: ({SiteAddress}) => SiteAddress
+  },
+  siteType: {
+    type: new GraphQLNonNull(GraphQLString),
+    description: '測站類型',
+    resolve: ({SiteType}) => {
+      if(!Object.values(siteTypesList).includes(SiteType))
+        notIncluded(`[graphql] "${SiteType}" is not in siteTypes list.`);
+
+      return SiteType;
+    }
+  },
+  ...countyFields('County'),
+  ...townshipFields('Township'),
+  ...geoFields({lonKey: 'TWD97Lon', latKey: 'TWD97Lat'})
+};
 export const dataType = new GraphQLObjectType({
   name: 'AirQualityMonitoringStation',
   description: '空氣品質監測站基本資料',
   interfaces: [nodeInterface],
-  fields: {
-    id: globalIdField(
-      'AirQualityMonitoringStation',
-      ({SiteEngName}) => `AirQualityMonitoringStation-${SiteEngName}`
-    ),
-    siteName: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: '測站名稱',
-      resolve: ({SiteName}) => SiteName
-    },
-    siteEngName: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: '測站英文名稱',
-      resolve: ({SiteEngName}) => SiteEngName
-    },
-    areaName: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: '空品區',
-      resolve: ({AreaName}) => {
-        if(!Object.values(areaNamesList).includes(AreaName))
-          notIncluded(`[graphql] "${AreaName}" is not in areaNames list.`);
-
-        return AreaName;
-      }
-    },
-    siteAddress: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: '測站地址',
-      resolve: ({SiteAddress}) => SiteAddress
-    },
-    siteType: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: '測站類型',
-      resolve: ({SiteType}) => {
-        if(!Object.values(siteTypesList).includes(SiteType))
-          notIncluded(`[graphql] "${SiteType}" is not in siteTypes list.`);
-
-        return SiteType;
-      }
-    },
-    ...countyFields('County'),
-    ...townshipFields('Township'),
-    ...geoFields({lonKey: 'TWD97Lon', latKey: 'TWD97Lat'})
-  }
+  fields: dataFields
 });
 
 const {connectionType: airQualityMonitoringStationConnection} =

@@ -4,5 +4,6 @@ node_modules
 .eslintcache
 *.log
 coverage
+.nyc_output
 lib
 data

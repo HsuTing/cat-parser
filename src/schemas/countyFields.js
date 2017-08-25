@@ -38,7 +38,7 @@ export const args = {
 };
 
 export const resolve = (
-  getData = () => {},
+  getData,
   key = 'county'
 ) => async (data, {counties}, ctx) => {
   try {

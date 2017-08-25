@@ -8,4 +8,5 @@ export default word => {
     throw new Error(word);
 
   console.log(chalk.red(word));
+  return chalk.red(word);
 };

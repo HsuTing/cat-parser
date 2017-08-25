@@ -45,7 +45,7 @@ export const args = {
 };
 
 export const resolve = (
-  getData = () => {},
+  getData,
   keys = {
     latKey: 'lat',
     lonKey: 'lon'
