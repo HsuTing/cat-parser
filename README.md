@@ -6,15 +6,9 @@
 
 ## 使用方法
 - 起始畫面
-此為`graphql`本身原始 UI ，使用方法為左側輸入想要的`query`，右側則為輸出結果
+此為`graphql`本身原始 UI ，使用方法為左側輸入想要的`query`，中間則為輸出結果，右側為`schemas`的敘述，可從此去了解可使用的`data`以及`args`
+
 ![img](https://hsuting.github.io/open-data/imgs/init.png)
-
-- 輸出結果
-![img](https://hsuting.github.io/open-data/imgs/result.png)
-
-- 資料敘述
-右上方有一個`docs`，點下去即可
-![img](https://hsuting.github.io/open-data/imgs/description.png)
 
 ## License
 MIT © [HsuTing](http://hsuting.com)
