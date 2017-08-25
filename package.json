@@ -6,7 +6,7 @@
   },
   "scripts": {
     "getData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-county-township.js",
-    "test": "nyc mocha ./src/test/** --recursive --reporter spec",
+    "test": "nyc mocha ./src/test/** --recursive --reporter spec --timeout 60000",
     "lint": "eslint --cache ./src ./bin --ext .js",
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
