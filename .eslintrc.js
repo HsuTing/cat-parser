@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 // set alias
-cconst {plugins} = JSON.parse(fs.readFileSync('./.babelrc'));
+const {plugins} = JSON.parse(fs.readFileSync('./.babelrc'));
 const alias = plugins.slice(-1)[0][1].alias;
 
 module.exports = {
