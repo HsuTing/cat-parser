@@ -45,16 +45,15 @@ export const args = {
 };
 
 export const resolve = (
-  getData,
+  originData,
   keys = {
     latKey: 'lat',
     lonKey: 'lon'
   }
-) => async (data, args, ctx) => {
+) => async (_data, {geo}, ctx) => {
   try {
-    const {geo} = args;
     const {latKey, lonKey} = keys;
-    const {updateTime, data} = await getData(data, args, ctx);
+    const {updateTime, data} = originData;
 
     if(geo) {
       let newData = [...data];

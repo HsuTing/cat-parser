@@ -53,26 +53,17 @@ export default {
       }))
     }
   },
-  resolve: async (data, {areaNames, siteTypes, ...args}, ctx) => {
-    const geoData = await geoResolve(
-      () => fetch(
-        'AirQualityMonitoringStation',
-        'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
-      ), {
-        latKey: 'TWD97Lat',
-        lonKey: 'TWD97Lon'
-      }
-    )(data, args, ctx);
-    const countyData = await countyResolve(
-      () => geoData,
-      'County'
-    )(data, args, ctx);
-    const townshipData = await townshipResolve(
-      () => countyData,
-      'Township'
-    )(data, args, ctx);
-
-    let newData = {...townshipData};
+  resolve: async (_data, {areaNames, siteTypes, ...args}, ctx) => {
+    const data = await fetch(
+      'AirQualityMonitoringStation',
+      'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
+    );
+    const geoData = await geoResolve(_data, {
+      latKey: 'TWD97Lat',
+      lonKey: 'TWD97Lon'
+    })(data, args, ctx);
+    const countyData = await countyResolve(geoData, 'County')(_data, args, ctx);
+    let newData = await townshipResolve(countyData, 'Township')(_data, args, ctx);
 
     if(areaNames) {
       const areaNamesChiName = areaNames.map(key => areaNamesList[key]);

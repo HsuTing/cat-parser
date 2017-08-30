@@ -38,12 +38,11 @@ export const args = {
 };
 
 export const resolve = (
-  getData,
+  originData,
   key = 'county'
-) => async (data, args, ctx) => {
+) => async (_data, {counties}, ctx) => {
   try {
-    const {counties} = args;
-    const {updateTime, data} = await getData(data, args, ctx);
+    const {updateTime, data} = originData;
 
     if(counties) {
       const countiesChiName = counties.map(county => countiesList[county]);

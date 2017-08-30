@@ -13,12 +13,10 @@ describe('township fields', () => {
   });
 
   describe('# resolve', () => {
-    it('## throw error', () => resolve(
-      () => ({
-        updateTime: '',
-        data: {}
-      })
-    )(
+    it('## throw error', () => resolve({
+      updateTime: '',
+      data: {}
+    })(
       {}, {
         townships: ['township']
       }

@@ -20,6 +20,7 @@ const root = path.resolve(__dirname, './../');
 const ENV = process.env.NODE_ENV === 'production';
 
 // middleware
+/* istanbul ignore if */
 if(ENV)
   app.use(morgan('combined', {
     stream: fs.createWriteStream(
@@ -45,4 +46,5 @@ app.use(graphql({
 }));
 
 // setting
+/* istanbul ignore next */
 export default app.listen(ENV ? process.env.PORT : 8000);
