@@ -58,10 +58,10 @@ export default {
       'AirQualityMonitoringStation',
       'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
     );
-    const geoData = await geoResolve(_data, {
+    const geoData = await geoResolve(data, {
       latKey: 'TWD97Lat',
       lonKey: 'TWD97Lon'
-    })(data, args, ctx);
+    })(_data, args, ctx);
     const countyData = await countyResolve(geoData, 'County')(_data, args, ctx);
     let newData = await townshipResolve(countyData, 'Township')(_data, args, ctx);
 

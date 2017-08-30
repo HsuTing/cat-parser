@@ -38,12 +38,11 @@ export const args = {
 };
 
 export const resolve = (
+  {updateTime, data},
   originData,
   key = 'township'
 ) => async (_data, {townships}, ctx) => {
   try {
-    const {updateTime, data} = originData;
-
     if(townships) {
       const townshipsChiName = townships.map(township => townshipsList[township]);
 

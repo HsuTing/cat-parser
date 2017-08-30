@@ -38,12 +38,10 @@ export const args = {
 };
 
 export const resolve = (
-  originData,
+  {updateTime, data},
   key = 'county'
 ) => async (_data, {counties}, ctx) => {
   try {
-    const {updateTime, data} = originData;
-
     if(counties) {
       const countiesChiName = counties.map(county => countiesList[county]);
 

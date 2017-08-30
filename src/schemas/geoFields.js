@@ -45,7 +45,7 @@ export const args = {
 };
 
 export const resolve = (
-  originData,
+  {updateTime, data},
   keys = {
     latKey: 'lat',
     lonKey: 'lon'
@@ -53,7 +53,6 @@ export const resolve = (
 ) => async (_data, {geo}, ctx) => {
   try {
     const {latKey, lonKey} = keys;
-    const {updateTime, data} = originData;
 
     if(geo) {
       let newData = [...data];
