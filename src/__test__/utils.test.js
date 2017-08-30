@@ -1,7 +1,6 @@
 'use strict';
 
 import process from 'process';
-import should from 'should'; // eslint-disable-line no-unused-vars
 import chalk from 'chalk';
 
 import synonym from 'utils/synonym';
@@ -9,21 +8,19 @@ import notIncluded from 'utils/notIncluded';
 
 describe('utils', () => {
   it('# synonym', () => {
-    synonym('台')
-      .should.be.equal('臺');
+    expect(synonym('台')).toBe('臺');
   });
 
   describe('# notIncluded', () => {
-    before(() => {
+    beforeAll(() => {
       process.env.NODE_ENV = 'production';
     });
 
     it('normal', () => {
-      notIncluded('test')
-        .should.be.equal(chalk.red('test'));
+      expect(notIncluded('test')).toBe(chalk.red('test'));
     });
 
-    after(() => {
+    afterAll(() => {
       process.env.NODE_ENV = undefined;
     });
   });

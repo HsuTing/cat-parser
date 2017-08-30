@@ -1,6 +1,5 @@
 'use strict';
 
-import should from 'should'; // eslint-disable-line no-unused-vars
 import {graphql} from 'graphql';
 
 import schema from 'schemas/schema';
@@ -70,17 +69,17 @@ describe('air quality monitoring station', () => {
     it('## areaName', () => {
       const {areaName} = dataFields;
 
-      (() => {
+      expect(() => {
         areaName.resolve({AreaName: 'test'});
-      }).should.throw('[graphql] "test" is not in areaNames list.');
+      }).toThrowError('[graphql] "test" is not in areaNames list.');
     });
 
     it('## siteType', () => {
       const {siteType} = dataFields;
 
-      (() => {
+      expect(() => {
         siteType.resolve({SiteType: 'test'});
-      }).should.throw('[graphql] "test" is not in siteTypes list.');
+      }).toThrowError('[graphql] "test" is not in siteTypes list.');
     });
   });
 });

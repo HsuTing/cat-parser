@@ -13,6 +13,7 @@ const store = memFs.create();
 const fs = editor.create(store);
 const root = path.resolve(__dirname, './../../data');
 
+/* istanbul ignore if */
 if(process.env.NODE_ENV === 'production') {
   firebase.initializeApp({
     apiKey: process.env.apiKey,
@@ -31,6 +32,7 @@ if(process.env.NODE_ENV === 'production') {
 
 export const getData = async (name = 'data') => {
   try {
+    /* istanbul ignore if */
     if(process.env.NODE_ENV === 'production') {
       const snapshot = await firebase.database().ref(`/${name}/`).once('value');
       return snapshot.val();

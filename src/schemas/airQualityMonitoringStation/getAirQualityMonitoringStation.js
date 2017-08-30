@@ -70,7 +70,7 @@ export default {
 
       newData = {
         ...newData,
-        data: (newData.data || []).filter(({AreaName}) => {
+        data: (newData.data || /* istanbul ignore next */ []).filter(({AreaName}) => {
           return areaNamesChiName.includes(AreaName);
         })
       };
@@ -81,7 +81,7 @@ export default {
 
       newData = {
         ...newData,
-        data: (newData.data || []).filter(({SiteType}) => {
+        data: (newData.data || /* istanbul ignore next */ []).filter(({SiteType}) => {
           return siteTypesChiName.includes(SiteType);
         })
       };
