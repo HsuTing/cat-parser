@@ -40,8 +40,9 @@ export const args = {
 export const resolve = (
   getData,
   key = 'township'
-) => async (data, {townships}, ctx) => {
+) => async (data, args, ctx) => {
   try {
+    const {townships} = args;
     const {updateTime, data} = await getData(data, args, ctx);
 
     if(townships) {

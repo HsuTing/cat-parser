@@ -50,8 +50,9 @@ export const resolve = (
     latKey: 'lat',
     lonKey: 'lon'
   }
-) => async (data, {geo}, ctx) => {
+) => async (data, args, ctx) => {
   try {
+    const {geo} = args;
     const {latKey, lonKey} = keys;
     const {updateTime, data} = await getData(data, args, ctx);
 
