@@ -5,8 +5,8 @@ import {graphql} from 'graphql';
 import schema from 'schemas/schema';
 import {dataFields} from 'schemas/airQualityMonitoringStation/dataType';
 
-import checkResult from './checkResult';
-import {geo, counties, townships} from './args';
+import checkResult from './utils/checkResult';
+import {geo, counties, townships} from './utils/args';
 
 describe('air quality monitoring station', () => {
   describe('# query', () => {
