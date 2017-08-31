@@ -46,5 +46,4 @@ app.use(graphql({
 }));
 
 // setting
-/* istanbul ignore next */
-export default app.listen(ENV ? process.env.PORT : 8000);
+export default app.listen(/* istanbul ignore next */ENV ? process.env.PORT : 8000);

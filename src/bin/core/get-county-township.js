@@ -34,6 +34,7 @@ export default link => fetch(link)
   .then(body => new Promise((resolve, reject) => parseString(
     body,
     (err, result) => {
+      /* istanbul ignore if */
       if(err)
         return reject(err);
 

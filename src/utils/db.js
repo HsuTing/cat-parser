@@ -30,7 +30,7 @@ if(process.env.NODE_ENV === 'production') {
   ).catch(e => console.log(e));
 }
 
-export const getData = async (name = 'data') => {
+export const getData = async name => {
   try {
     /* istanbul ignore if */
     if(process.env.NODE_ENV === 'production') {
@@ -44,7 +44,8 @@ export const getData = async (name = 'data') => {
   }
 };
 
-export const writeFile = (name = 'data', data) => {
+export const writeFile = (name, data) => {
+  /* istanbul ignore if */
   if(process.env.NODE_ENV === 'production')
     return firebase.database().ref(`/${name}/`).set(data);
 
@@ -54,12 +55,14 @@ export const writeFile = (name = 'data', data) => {
   );
 
   fs.commit((err) => {
+    /* istanbul ignore if */
     if(err)
       console.log(err);
   });
-  return;
+
+  return data;
 };
 
-export const checkUpdated = (name = 'data', time = moment().format()) => (
+export const checkUpdated = (name, time = moment().format()) => (
   moment(updateTime[name]).format('x') < moment().format('x') - moment(time).format('x')
 );

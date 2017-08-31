@@ -57,7 +57,7 @@ export const resolve = (
     if(geo) {
       let newData = [...data];
       geo.forEach(({lon, lat, range}) => {
-        newData = [...(data || []).filter(d => getDistance(
+        newData = [...(data || /* istanbul ignore next */ []).filter(d => getDistance(
           {latitude: lat, longitude: lon},
           {latitude: parseFloat(d[latKey]), longitude: parseFloat(d[lonKey])}
         ) < range)];
