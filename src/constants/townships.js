@@ -359,7 +359,5 @@ export default {
   WanrongTownship: "萬榮鄉",
   YuliTownship: "玉里鎮",
   ZhuoxiTownship: "卓溪鄉",
-  FuliTownship: "富里鄉",
-  //Node 6077
-  AlishanTownship: "阿里山"
+  FuliTownship: "富里鄉"
 };
