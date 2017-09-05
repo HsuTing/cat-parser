@@ -18,6 +18,14 @@ export default key => ({
     description: '鄉鎮',
     resolve: data => {
       const township = synonym(data[key]);
+      
+      let check = Object.values(townshipsList).map(town => {
+        if(town.includes(township))
+          return true;
+        return false;
+      });
+      if(check.includes(true))
+        return township;
 
       if(!Object.values(townshipsList).includes(township))
         notIncluded(`[graphql] "${township}" is not in townships list.`);

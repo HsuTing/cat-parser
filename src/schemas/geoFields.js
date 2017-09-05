@@ -7,17 +7,26 @@ import {
   GraphQLFloat
 } from 'graphql';
 import {getDistance} from 'geolib';
+import coordinateLonLat from 'utils/coordinateLonLat';
 
 export default ({lonKey, latKey}) => ({
   lon: {
     type: new GraphQLNonNull(GraphQLFloat),
     description: '經度',
-    resolve: data => parseFloat(data[lonKey])
+    resolve: data => { 
+      if(data[lonKey].indexOf(',')>0)
+        data[lonKey] = coordinateLonLat(data[lonKey]);
+      return parseFloat(data[lonKey]);
+    }
   },
   lat: {
     type: new GraphQLNonNull(GraphQLFloat),
     description: '緯度',
-    resolve: data => parseFloat(data[latKey])
+    resolve: data => {
+      if(data[latKey].indexOf(',')>0)
+        data[latKey] = coordinateLonLat(data[latKey]);
+      return parseFloat(data[latKey])
+    }
   }
 });
 
@@ -53,7 +62,7 @@ export const resolve = (
 ) => async (_data, {geo}, ctx) => {
   try {
     const {latKey, lonKey} = keys;
-
+    
     if(geo) {
       let newData = [...data];
       geo.forEach(({lon, lat, range}) => {

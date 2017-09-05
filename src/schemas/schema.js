@@ -23,7 +23,6 @@ fs.readdirSync(__dirname)
       ...schema.query
     };
   });
-
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
