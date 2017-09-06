@@ -7,26 +7,27 @@ import {
   GraphQLFloat
 } from 'graphql';
 import {getDistance} from 'geolib';
-import coordinateLonLat from 'utils/coordinateLonLat';
+import {sexagesimal2decimal} from 'geolib';
+
+const replaceComma = word => (
+  word.replace(/,/, '° ')
+    .replace(/,/, '\' ')
+);
 
 export default ({lonKey, latKey}) => ({
   lon: {
     type: new GraphQLNonNull(GraphQLFloat),
     description: '經度',
-    resolve: data => { 
-      if(data[lonKey].indexOf(',')>0)
-        data[lonKey] = coordinateLonLat(data[lonKey]);
-      return parseFloat(data[lonKey]);
-    }
+    resolve: data => (/,/g).test(data[lonKey]) ?
+      sexagesimal2decimal(`${replaceComma(data[lonKey])}" N`) :
+      parseFloat(data[lonKey])
   },
   lat: {
     type: new GraphQLNonNull(GraphQLFloat),
     description: '緯度',
-    resolve: data => {
-      if(data[latKey].indexOf(',')>0)
-        data[latKey] = coordinateLonLat(data[latKey]);
-      return parseFloat(data[latKey])
-    }
+    resolve: data => (/,/g).test(data[latKey]) ?
+      sexagesimal2decimal(`${replaceComma(data[latKey])}" N`) :
+      parseFloat(data[latKey])
   }
 });
 
@@ -62,7 +63,7 @@ export const resolve = (
 ) => async (_data, {geo}, ctx) => {
   try {
     const {latKey, lonKey} = keys;
-    
+
     if(geo) {
       let newData = [...data];
       geo.forEach(({lon, lat, range}) => {

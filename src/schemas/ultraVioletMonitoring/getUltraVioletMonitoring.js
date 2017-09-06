@@ -1,12 +1,6 @@
 'use strict';
 
-/*import {
-  graphQLEnumType,
-  graphQList
-} from 'graphql';*/
-
 import fetch from 'utils/fetch';
-//import parseObjEnumType from 'utils/parse-obj-enumType';
 import {
   args as geoArgs,
   resolve as geoResolve
