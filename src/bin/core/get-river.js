@@ -6,7 +6,7 @@ export default fetch('http://data.wra.gov.tw/Service/OpenData.aspx?format=json&i
   .then(res => res.json())
   .then(({RiverCode_OPENDATA}) => ({
     rivers: RiverCode_OPENDATA.reduce((result, {BasinName, EnglishBasinName}) => {
-      result[BasinName.replace(/ /g, '')] = EnglishBasinName.replace(/ /g, '');
+      result[EnglishBasinName.replace(/ /g, '')] = BasinName.replace(/ /g, '');
 
       return result;
     }, {})

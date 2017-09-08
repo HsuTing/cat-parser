@@ -46,7 +46,7 @@ export const resolve = (
 
       return {
         updateTime,
-        data: (data || []).filter(d => {
+        data: (data || /* istanbul ignore next */ []).filter(d => {
           return riversChiName.includes(d[key]);
         })
       };

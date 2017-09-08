@@ -18,7 +18,7 @@ export default key => ({
     description: '鄉鎮',
     resolve: data => {
       const township = synonym(data[key]);
-      
+
       if(!Object.values(townshipsList).includes(township))
         notIncluded(`[graphql] "${township}" is not in townships list.`);
 

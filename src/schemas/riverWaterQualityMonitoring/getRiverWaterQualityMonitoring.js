@@ -67,7 +67,7 @@ export default {
 
       newData = {
         ...newData,
-        data: (newData.data || []).filter(({ItemName}) => {
+        data: (newData.data || /* istanbul ignore next */ []).filter(({ItemName}) => {
           return itemNamesChiName.includes(ItemName);
         })
       };

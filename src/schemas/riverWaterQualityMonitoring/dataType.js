@@ -115,7 +115,7 @@ export default new GraphQLObjectType({
       type: riverWaterQualityMonitoringConnection,
       description: '河川水質監測資料集合(type)',
       args: connectionArgs,
-      resolve: ({data}, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });

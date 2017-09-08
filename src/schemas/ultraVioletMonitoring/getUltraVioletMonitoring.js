@@ -34,8 +34,7 @@ export default {
       latKey: 'WGS84Lat',
       lonKey: 'WGS84Lon'
     })(_data, args, ctx);
-    const countyData = await countyResolve(geoData, 'County')(_data, args, ctx);
-    let newData = countyData;
-    return newData;
+
+    return await countyResolve(geoData, 'County')(_data, args, ctx);
   }
 };
