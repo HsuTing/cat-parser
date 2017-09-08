@@ -20,6 +20,7 @@ import geoFields from 'schemas/geoFields';
 import riverFields from 'schemas/riverFields';
 
 import {itemNamesList} from './constants';
+
 const {nodeInterface} = fields;
 
 export const dataFields = {
@@ -87,7 +88,6 @@ export const dataFields = {
     description: '測項單位',
     resolve: ({ItemUnit}) =>ItemUnit
   },
-
   ...countyFields('County'),
   ...townshipFields('Township'),
   ...geoFields({lonKey: 'TWD97Lon', latKey: 'TWD97Lat'}),
@@ -118,4 +118,4 @@ export default new GraphQLObjectType({
       resolve: ({data}, args) => connectionFromArray(data || [], args)
     }
   }
-}); 
+});

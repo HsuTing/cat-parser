@@ -1,8 +1,8 @@
 'use strict';
 
-import riverWaterQualityMonitoring from './getRiverWaterQualityMonitoring'
+import riverWaterQualityMonitoring from './getRiverWaterQualityMonitoring';
 
-export default{
+export default {
   query: {
     riverWaterQualityMonitoring
   }
