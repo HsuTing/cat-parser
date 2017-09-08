@@ -3,9 +3,9 @@ node_js:
   - "node"
 script:
   - yarn lint
-  - yarn build
-  - yarn test
   - yarn getData
+  - yarn build
+  - NODE_ENV=production yarn test
 branches:
 only:
   - master
