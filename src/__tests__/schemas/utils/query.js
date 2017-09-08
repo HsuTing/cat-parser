@@ -1,5 +1,6 @@
 'use strict';
 
+import process from 'process';
 import {graphql} from 'graphql';
 
 import schema from 'schemas/schema';
@@ -39,6 +40,10 @@ export default (
   });
 
   describe('# query', () => {
+    beforeAll(() => {
+      process.env.NODE_ENV = 'production';
+    });
+
     it('## normal', () => checkResult(graphql(schema, `
       query {
         ${queryName} {
@@ -93,5 +98,9 @@ export default (
           }
         `)));
       });
+
+    afterAll(() => {
+      process.env.NODE_ENV = undefined;
+    });
   });
 };

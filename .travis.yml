@@ -5,7 +5,7 @@ script:
   - yarn lint
   - yarn getData
   - yarn build
-  - NODE_ENV=production yarn test
+  - yarn test
 branches:
 only:
   - master
