@@ -3,9 +3,11 @@
 
 import 'babel-polyfill';
 import path from 'path';
+import process from 'process';
 import memFs from 'mem-fs';
 import editor from 'mem-fs-editor';
 import * as firebase from 'firebase';
+import chalk from 'chalk';
 
 const store = memFs.create();
 const fs = editor.create(store);
@@ -20,25 +22,36 @@ firebase.initializeApp({
   messagingSenderId: process.env.messagingSenderId
 });
 
-firebase.auth().signInWithEmailAndPassword(
-  process.env.email,
-  process.env.password
-).catch(e => console.log(e));
+process.on('unhandledRejection', reason => {
+  console.log(reason);
+});
 
 (async () => {
-  const snapshot = await firebase.database().ref('/').once('value');
-  const data = snapshot.val();
-
-  Object.keys(data).forEach(name => {
-    fs.write(
-      path.resolve(root, `${name}.json`),
-      JSON.stringify(data[name], null, 2)
+  try {
+    await firebase.auth().signInWithEmailAndPassword(
+      process.env.email,
+      process.env.password
     );
-  });
 
-  fs.commit((err) => {
-    /* istanbul ignore if */
-    if(err)
-      console.log(err);
-  });
+    const snapshot = await firebase.database().ref('/').once('value');
+    const data = snapshot.val();
+
+    Object.keys(data).forEach(name => {
+      fs.write(
+        path.resolve(root, `${name}.json`),
+        JSON.stringify(data[name], null, 2)
+      );
+    });
+
+    fs.commit((err) => {
+      /* istanbul ignore if */
+      if(err)
+        console.log(err);
+
+      console.log(chalk.cyan('Done'));
+      process.exit();
+    });
+  } catch(e) {
+    throw new Error(e);
+  }
 })();
