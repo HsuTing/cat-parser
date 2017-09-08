@@ -1,47 +1,13 @@
-#!/usr/bin/env node
 'use strict';
 
-import path from 'path';
 import fetch from 'node-fetch';
-import memFs from 'mem-fs';
-import editor from 'mem-fs-editor';
-import chalk from 'chalk';
 
-const store = memFs.create();
-const fs = editor.create(store);
-const root = path.resolve(__dirname, './../../constants');
-const river = {};
-
-const content = list => `
-'use strict';
-
-export default{
-${
-  Object.keys(list)
-    .map(key => `  ${key}: "${list[key]}"`)
-    .join(',\n')
-}
-};
-`;
-
-export default link => fetch(link)
+export default fetch('http://data.wra.gov.tw/Service/OpenData.aspx?format=json&id=336F84F7-7CFF-4084-9698-813DD1A916FE')
   .then(res => res.json())
-  .then(body => new Promise((resolve,reject) => {
-    
-    const river_data = body.RiverCode_OPENDATA;
+  .then(({RiverCode_OPENDATA}) => ({
+    rivers: RiverCode_OPENDATA.reduce((result, {BasinName, EnglishBasinName}) => {
+      result[BasinName.replace(/ /g, '')] = EnglishBasinName.replace(/ /g, '');
 
-    river_data.forEach(data => {
-      const chiName = data.BasinName.replace(/ /g, '');
-      const engName = data.EnglishBasinName.replace(/ /g, '');
-      river[engName] = chiName;
-    });
-    console.log(root);
-    fs.write(
-      path.resolve(root, 'rivers.js'),
-      content(river)
-    );
-    fs.commit(() => {
-      resolve(chalk.cyan('Get data.'));
-    });
-  }
-  ));
+      return result;
+    }, {})
+  }));

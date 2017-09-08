@@ -5,7 +5,7 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "getData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-county-township.js",
+    "getData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-data.js",
     "test": "jest --silent",
     "test:watch": "yarn test -- --watchAll",
     "lint": "eslint --cache ./src --ext .js",

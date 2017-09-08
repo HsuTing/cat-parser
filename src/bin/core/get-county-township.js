@@ -1,44 +1,24 @@
-#!/usr/bin/env node
 'use strict';
 
-import path from 'path';
 import fetch from 'node-fetch';
 import {parseString} from 'xml2js';
-import memFs from 'mem-fs';
-import editor from 'mem-fs-editor';
-import chalk from 'chalk';
 
-const store = memFs.create();
-const fs = editor.create(store);
-const root = path.resolve(__dirname, './../../constants');
 const counties = {};
 const townships = {
   ToufenTownship: '頭份鎮',
   TaoyuanDistrict: '桃園區'
 };
 
-const content = list => `
-'use strict';
-
-export default {
-${
-  Object.keys(list)
-    .map(key => `  ${key}: "${list[key]}"`)
-    .join(',\n')
-}
-};
-`;
-
-export default link => fetch(link)
+export default fetch('http://download.post.gov.tw/post/download/county_h_10603.xml')
   .then(res => res.text())
   .then(body => new Promise((resolve, reject) => parseString(
     body,
-    (err, result) => {
+    (err, {dataroot}) => {
       /* istanbul ignore if */
       if(err)
         return reject(err);
 
-      const {county_h_10508} = result.dataroot;
+      const {county_h_10508} = dataroot;
 
       county_h_10508.forEach(data => {
         const chi = data['欄位2'][0];
@@ -52,18 +32,9 @@ export default link => fetch(link)
         townships[townshipEngName] = townshipChiName;
       });
 
-      fs.write(
-        path.resolve(root, 'counties.js'),
-        content(counties)
-      );
-
-      fs.write(
-        path.resolve(root, 'townships.js'),
-        content(townships)
-      );
-
-      fs.commit(() => {
-        resolve(chalk.cyan('Get data.'));
+      resolve({
+        counties,
+        townships
       });
     }
   )));
