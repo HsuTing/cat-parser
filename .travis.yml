@@ -4,6 +4,7 @@ node_js:
 script:
   - yarn lint
   - yarn getData
+  - yarn getTempData
   - yarn build
   - yarn test
 branches:

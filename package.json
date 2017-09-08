@@ -7,6 +7,7 @@
   "scripts": {
     "getData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-data.js",
     "create-schema": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/create-schema.js",
+    "getTempData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-temp-data.js",
     "test": "jest --silent",
     "test:watch": "yarn test -- --watchAll",
     "lint": "eslint --cache ./src --ext .js",
