@@ -33,7 +33,10 @@ process.on('unhandledRejection', reason => {
         }
       );
 
-      fs.commit(() => {
+      fs.commit(err => {
+        if(err)
+          throw new Error(err);
+
         console.log(chalk.cyan(`Get ${name}.`));
       });
     });

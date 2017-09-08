@@ -6,6 +6,7 @@
   },
   "scripts": {
     "getData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-data.js",
+    "create-schema": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/create-schema.js",
     "test": "jest --silent",
     "test:watch": "yarn test -- --watchAll",
     "lint": "eslint --cache ./src --ext .js",
@@ -50,8 +51,10 @@
     "eslint-import-resolver-babel-module": "^3.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-watch": "^3.1.2",
+    "inquirer": "^3.2.3",
     "jest": "^21.0.2",
     "pre-commit": "^1.2.2",
+    "validator": "^8.1.0",
     "xml2js": "^0.4.19"
   },
   "dependencies": {
