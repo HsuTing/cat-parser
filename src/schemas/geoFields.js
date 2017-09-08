@@ -19,7 +19,7 @@ export default ({lonKey, latKey}) => ({
     type: new GraphQLNonNull(GraphQLFloat),
     description: '經度',
     resolve: data => (/,/g).test(data[lonKey]) ?
-      sexagesimal2decimal(`${replaceComma(data[lonKey])}" N`) :
+      sexagesimal2decimal(`${replaceComma(data[lonKey])}" E`) :
       parseFloat(data[lonKey])
   },
   lat: {
