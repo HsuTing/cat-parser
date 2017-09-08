@@ -23,8 +23,20 @@ export default (
         ].concat(result);
       else
         return [field].concat(result);
-    }, [])
-    .join(' ');
+    }, []).join(' ');
+
+  it('# check test all fields', () => {
+    expect(
+      (`id ${getFields}`).replace(/\n/g, '')
+        .replace(/\s\s+/g, ' ')
+        .split(' ')
+        .sort()
+    ).toMatchObject(
+      Object.keys(
+        require(`./../../../schemas/${queryName}/dataType`).dataFields
+      ).sort()
+    );
+  });
 
   describe('# query', () => {
     it('## normal', () => checkResult(graphql(schema, `
