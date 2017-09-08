@@ -33,6 +33,8 @@ describe('utils', () => {
 
   it('# synonym', () => {
     expect(synonym('台')).toBe('臺');
+    expect(synonym('阿里山')).toBe('阿里山鄉');
+    expect(synonym('阿里山鄉')).toBe('阿里山鄉');
   });
 
   describe('# notIncluded', () => {

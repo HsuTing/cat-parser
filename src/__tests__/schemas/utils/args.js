@@ -1,5 +1,9 @@
 'use strict';
 
+export const river = `
+  rivers: YanshuiRiver
+`;
+
 export const geo = `
   geo: {
     lat: 121,

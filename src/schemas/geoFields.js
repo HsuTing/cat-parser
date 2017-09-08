@@ -7,17 +7,27 @@ import {
   GraphQLFloat
 } from 'graphql';
 import {getDistance} from 'geolib';
+import {sexagesimal2decimal} from 'geolib';
+
+const replaceComma = word => (
+  word.replace(/,/, '° ')
+    .replace(/,/, '\' ')
+);
 
 export default ({lonKey, latKey}) => ({
   lon: {
     type: new GraphQLNonNull(GraphQLFloat),
     description: '經度',
-    resolve: data => parseFloat(data[lonKey])
+    resolve: data => (/,/g).test(data[lonKey]) ?
+      sexagesimal2decimal(`${replaceComma(data[lonKey])}" E`) :
+      parseFloat(data[lonKey])
   },
   lat: {
     type: new GraphQLNonNull(GraphQLFloat),
     description: '緯度',
-    resolve: data => parseFloat(data[latKey])
+    resolve: data => (/,/g).test(data[latKey]) ?
+      sexagesimal2decimal(`${replaceComma(data[latKey])}" N`) :
+      parseFloat(data[latKey])
   }
 });
 
