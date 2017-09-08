@@ -17,7 +17,7 @@ export default async (name, link) => {
     let data = await getData(name);
 
     if(!data || check) {
-      /* istanbul ignore if */
+      /* istanbul ignore next */
       if(check) {
         console.log(chalk.cyan(`[db] update "${name}".`));
       } else {
