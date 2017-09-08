@@ -42,6 +42,24 @@ export default (
       }
     `)));
 
+    it('## id is unique', async () => {
+      const result = (await graphql(schema, `
+        query {
+          ${queryName} {
+            ${queryName}Group {
+              edges {
+                node {
+                  id
+                }
+              }
+            }
+          }
+        }
+      `)).data[queryName][`${queryName}Group`].edges;
+
+      expect(result[0].node.id !== result[1].node.id).toBe(true);
+    });
+
     Object.keys({
       ...fields,
       ...otherTest

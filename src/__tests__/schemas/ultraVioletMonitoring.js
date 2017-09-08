@@ -2,7 +2,7 @@
 
 import query from './utils/query';
 
-describe('ultra violet Monitoring', () => {
+describe('ultra violet monitoring', () => {
   query(
     'ultraVioletMonitoring', [
       'siteName',

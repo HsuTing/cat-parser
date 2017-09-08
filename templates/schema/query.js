@@ -29,6 +29,9 @@ import dataType from './dataType';
 
 export default {
   description: `
+  <%= chiName %>
+
+  資料來源：<%= website %>
   `,
   type: dataType,
   args: {

@@ -25,8 +25,16 @@ process.on('unhandledRejection', reason => {
       validate: word => !word || word === '' ? 'can not be empty' : true,
       filter: name => name[0].toLowerCase() + name.slice(1)
     }, {
+      name: 'chiName',
+      message: 'chinese name',
+      validate: word => !word || word === '' ? 'can not be empty' : true
+    }, {
       name: 'link',
       message: 'data link',
+      validate: value => validator.isURL(value) ? true : 'Must be an url.'
+    }, {
+      name: 'website',
+      message: 'data website',
       validate: value => validator.isURL(value) ? true : 'Must be an url.'
     }, {
       type: 'checkbox',
@@ -79,6 +87,15 @@ process.on('unhandledRejection', reason => {
         }
       );
     });
+
+    fs.copyTpl(
+      path.resolve(process.cwd(), './templates/test-schema.js'),
+      path.resolve(process.cwd(), './src/__tests__/schemas', `${name}.js`), {
+        ...options,
+        name,
+        upperName
+      }
+    );
 
     fs.commit(err => {
       if(err)

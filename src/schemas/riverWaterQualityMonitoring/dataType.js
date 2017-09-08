@@ -26,7 +26,7 @@ const {nodeInterface} = fields;
 export const dataFields = {
   id: globalIdField(
     'RiverWaterQualityMonitoring',
-    ({SiteEngName}) => `RiverWaterQualityMonitoring-${SiteEngName}`
+    ({SiteEngName, ItemEngName}) => `RiverWaterQualityMonitoring-${SiteEngName}-${ItemEngName}`
   ),
   siteName: {
     type: new GraphQLNonNull(GraphQLString),

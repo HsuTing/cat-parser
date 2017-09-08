@@ -44,7 +44,7 @@ export const dataFields = {
 };
 export const dataType = new GraphQLObjectType({
   name: '<%= upperName %>',
-  description: '',
+  description: '<%= chiName %>',
   interfaces: [nodeInterface],
   fields: dataFields
 });
@@ -54,14 +54,14 @@ const {connectionType: <%= name %>Connection} =
 
 export default new GraphQLObjectType({
   name: '<%= upperName %>Group',
-  description: '',
+  description: '<%= chiName %>集合',
   interfaces: [nodeInterface],
   fields: {
     id: globalIdField('<%= upperName %>Group'),
     updateTime: updateTime('<%= upperName %>'),
     <%= name %>Group: {
       type: <%= name %>Connection,
-      description: '空氣品質監測站基本資料集合(type)',
+      description: '<%= chiName %>集合(type)',
       args: connectionArgs,
       resolve: ({data}, args) => connectionFromArray(data || [], args)
     }
