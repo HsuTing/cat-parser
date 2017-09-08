@@ -54,23 +54,24 @@ export default {
     }
   },
   resolve: async (_data, {areaNames, siteTypes, ...args}, ctx) => {
-    const data = await fetch(
+    let data = await fetch(
       'AirQualityMonitoringStation',
       'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
     );
-    const geoData = await geoResolve(data, {
+
+    data = await geoResolve(data, {
       latKey: 'TWD97Lat',
       lonKey: 'TWD97Lon'
     })(_data, args, ctx);
-    const countyData = await countyResolve(geoData, 'County')(_data, args, ctx);
-    let newData = await townshipResolve(countyData, 'Township')(_data, args, ctx);
+    data = await countyResolve(data, 'County')(_data, args, ctx);
+    data = await townshipResolve(data, 'Township')(_data, args, ctx);
 
     if(areaNames) {
       const areaNamesChiName = areaNames.map(key => areaNamesList[key]);
 
-      newData = {
-        ...newData,
-        data: (newData.data || /* istanbul ignore next */ []).filter(({AreaName}) => {
+      data = {
+        ...data,
+        data: (data.data || /* istanbul ignore next */ []).filter(({AreaName}) => {
           return areaNamesChiName.includes(AreaName);
         })
       };
@@ -79,14 +80,14 @@ export default {
     if(siteTypes) {
       const siteTypesChiName = siteTypes.map(key => siteTypesList[key]);
 
-      newData = {
-        ...newData,
-        data: (newData.data || /* istanbul ignore next */ []).filter(({SiteType}) => {
+      data = {
+        ...data,
+        data: (data.data || /* istanbul ignore next */ []).filter(({SiteType}) => {
           return siteTypesChiName.includes(SiteType);
         })
       };
     }
 
-    return newData;
+    return data;
   }
 };

@@ -50,29 +50,30 @@ export default {
     },
   },
   resolve: async (_data, {itemNames, ...args}, ctx) => {
-    const data = await fetch(
+    let data = await fetch(
       'RiverWaterQualityMonitoring',
       'http://opendata.epa.gov.tw/ws/Data/WQXRiver/?$format=json'
     );
-    const geoData = await geoResolve(data, {
+
+    data = await geoResolve(data, {
       lonKey: 'TWD97lon',
       latKey: 'TWD97Lat'
     })(_data, args, ctx);
-    const countyData = await countyResolve(geoData, 'County')(_data, args, ctx);
-    const townshipData = await townshipResolve(countyData, 'Township')(_data, args, ctx);
-    let newData = await riverResolve(townshipData, 'River')(_data, args, ctx);
+    data = await countyResolve(data, 'County')(_data, args, ctx);
+    data = await townshipResolve(data, 'Township')(_data, args, ctx);
+    data = await riverResolve(data, 'River')(_data, args, ctx);
 
     if(itemNames){
       const itemNamesChiName = itemNames.map(key => itemNamesList[key]);
 
-      newData = {
-        ...newData,
-        data: (newData.data || /* istanbul ignore next */ []).filter(({ItemName}) => {
+      data = {
+        ...data,
+        data: (data.data || /* istanbul ignore next */ []).filter(({ItemName}) => {
           return itemNamesChiName.includes(ItemName);
         })
       };
     }
 
-    return newData;
+    return data;
   }
 };

@@ -26,15 +26,17 @@ export default {
     ...countyArgs
   },
   resolve: async (_data, {...args}, ctx) => {
-    const data = await fetch(
+    let data = await fetch(
       'UltraVioletMonitoring',
       'http://opendata.epa.gov.tw/ws/Data/UV/?$format=json'
     );
-    const geoData = await geoResolve(data, {
+
+    data = await geoResolve(data, {
       latKey: 'WGS84Lat',
       lonKey: 'WGS84Lon'
     })(_data, args, ctx);
+    data = await countyResolve(data, 'County')(_data, args, ctx);
 
-    return await countyResolve(geoData, 'County')(_data, args, ctx);
+    return data;
   }
 };
