@@ -28,7 +28,7 @@ export default {
   args: {
     ...geoArgs,
     ...countyArgs,
-    ...townshipArgs,
+    ...townshipArgs
   },
   resolve: async (_data, {...args}, ctx) => {
     let data = await fetch(

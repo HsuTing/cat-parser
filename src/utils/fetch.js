@@ -18,9 +18,9 @@ export default async (name, link) => {
 
     if(!data || check) {
       /* istanbul ignore next */
-      if(check) {
+      if(check)
         console.log(chalk.cyan(`[db] update "${name}".`));
-      } else {
+      else {
         console.log(chalk.cyan(`[db] can not get "${name}" from db.`));
         console.log(chalk.cyan('[db] fetch data from the website.'));
       }
@@ -31,7 +31,7 @@ export default async (name, link) => {
         .then(data => {
           time[name] = moment().format();
           writeFile('time', time);
-          writeFile(name, data)
+          writeFile(name, data);
         })
         .catch(e => console.log(e));
     }

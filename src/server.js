@@ -21,7 +21,7 @@ const ENV = process.env.NODE_ENV === 'production';
 
 // middleware
 /* istanbul ignore if */
-if(ENV)
+if(ENV) {
   app.use(morgan('combined', {
     stream: fs.createWriteStream(
       path.resolve(root, 'server.log'), {
@@ -29,7 +29,7 @@ if(ENV)
       }
     )
   }));
-else
+} else
   app.use(morgan('dev'));
 app.use(helmet());
 app.use(etag());

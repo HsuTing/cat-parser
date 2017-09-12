@@ -39,9 +39,9 @@ export const args = {
 export const resolve = (
   {updateTime, data},
   key = 'river'
-) => async (_data, {rivers} , ctx) => {
+) => async (_data, {rivers}, ctx) => {
   try {
-    if(rivers){
+    if(rivers) {
       const riversChiName = rivers.map(river => riversList[river]);
 
       return {

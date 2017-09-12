@@ -4,7 +4,7 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString
-}	from 'graphql';
+} from 'graphql';
 
 import {
   globalIdField,
@@ -13,7 +13,7 @@ import {
   connectionFromArray
 } from 'graphql-relay';
 
-import fields,{updateTime} from 'schemas/fields';
+import fields, {updateTime} from 'schemas/fields';
 import countyFields from 'schemas/countyFields';
 import geoFields from 'schemas/geoFields';
 
@@ -69,7 +69,7 @@ export default new GraphQLObjectType({
       type: ultraVioletMonitoringConnection,
       description: '紫外線即時監測資料集合(type)',
       args: connectionArgs,
-      resolve: ({data},args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });

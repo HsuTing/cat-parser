@@ -43,7 +43,7 @@ process.on('unhandledRejection', reason => {
       );
     });
 
-    fs.commit((err) => {
+    fs.commit(err => {
       /* istanbul ignore if */
       if(err)
         console.log(err);

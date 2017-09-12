@@ -21,7 +21,7 @@ export default {
   資料來源：http://data.gov.tw/dataset/6076
   `,
   type: dataType,
-  args:  {
+  args: {
     ...geoArgs,
     ...countyArgs
   },

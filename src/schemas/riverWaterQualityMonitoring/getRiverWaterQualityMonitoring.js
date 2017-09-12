@@ -47,7 +47,7 @@ export default {
         description: '測項名稱',
         values: parseObjEnumType(itemNamesList)
       }))
-    },
+    }
   },
   resolve: async (_data, {itemNames, ...args}, ctx) => {
     let data = await fetch(
@@ -63,7 +63,7 @@ export default {
     data = await townshipResolve(data, 'Township')(_data, args, ctx);
     data = await riverResolve(data, 'River')(_data, args, ctx);
 
-    if(itemNames){
+    if(itemNames) {
       const itemNamesChiName = itemNames.map(key => itemNamesList[key]);
 
       data = {

@@ -49,7 +49,7 @@ export const resolve = (
       return {
         updateTime,
         data: (data || /* istanbul ignore next */ []).filter(d => {
-          return townshipsChiName.includes(synonym(d[key]))
+          return townshipsChiName.includes(synonym(d[key]));
         })
       };
     }

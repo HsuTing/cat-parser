@@ -17,11 +17,11 @@ export default (
 ) => {
   const getFields = fieldNames
     .reduce((result, field) => {
-      if(Object.keys(fields).includes(field))
+      if(Object.keys(fields).includes(field)) {
         return [
           fields[field].fields
         ].concat(result);
-      else
+      } else
         return [field].concat(result);
     }, []).join(' ');
 

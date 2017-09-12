@@ -6,7 +6,7 @@ describe('county fields', () => {
   it('# not in counties list', () => {
     expect(() => {
       fields('county')
-        .county.resolve({county: 'test'})
+        .county.resolve({county: 'test'});
     }).toThrowError('[graphql] "test" is not in counties list.');
   });
 

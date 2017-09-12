@@ -6,7 +6,7 @@ describe('river fields', () => {
   it('# not in rivers list', () => {
     expect(() => {
       fields('river')
-        .river.resolve({river: 'test'})
+        .river.resolve({river: 'test'});
     }).toThrowError('[graphql] "test" is not in rivers list.');
   });
 

@@ -46,7 +46,7 @@ export const dataFields = {
   },
   ...countyFields('County'),
   ...townshipFields('TownShip'),
-  ...geoFields({lonKey: 'TWD97Lon', latKey: 'TWD97Lat'}),
+  ...geoFields({lonKey: 'TWD97Lon', latKey: 'TWD97Lat'})
 };
 
 export const dataType = new GraphQLObjectType({

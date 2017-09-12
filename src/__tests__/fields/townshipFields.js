@@ -6,7 +6,7 @@ describe('township fields', () => {
   it('# not in townships list', () => {
     expect(() => {
       fields('township')
-        .township.resolve({township: 'test'})
+        .township.resolve({township: 'test'});
     }).toThrowError('[graphql] "test" is not in townships list.');
   });
 

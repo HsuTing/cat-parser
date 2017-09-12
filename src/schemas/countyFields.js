@@ -48,7 +48,7 @@ export const resolve = (
       return {
         updateTime,
         data: (data || /* istanbul ignore next */ []).filter(d => {
-          return countiesChiName.includes(synonym(d[key]))
+          return countiesChiName.includes(synonym(d[key]));
         })
       };
     }
