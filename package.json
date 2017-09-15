@@ -9,7 +9,7 @@
     "create-schema": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/create-schema.js",
     "getTempData": "rm -rf ./lib/bin && babel src/bin --out-dir lib/bin && node ./lib/bin/get-temp-data.js",
     "test": "jest --silent",
-    "test:watch": "yarn test -- --watchAll",
+    "test:watch": "yarn test --watchAll",
     "lint": "eslint --cache ./src --ext .js",
     "lint:watch": "esw --cache ./src --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
