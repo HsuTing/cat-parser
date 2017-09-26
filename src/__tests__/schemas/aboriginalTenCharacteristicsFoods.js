@@ -15,7 +15,7 @@ describe('aboriginal ten characteristics foods', () => {
       'telephone',
       'awards'
     ], {
-      seq: 'seqs: 1',
+      seq: 'seqs: seq1',
       name: 'names: one',
       shop: 'shops: one'
     }

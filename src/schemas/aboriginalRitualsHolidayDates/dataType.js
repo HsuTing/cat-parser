@@ -101,7 +101,7 @@ export default new GraphQLObjectType({
       type: aboriginalRitualsHolidayDatesConnection,
       description: '102年度原住民族歲時祭儀放假日期集合(type)',
       args: connectionArgs,
-      resolve: ({data}, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });

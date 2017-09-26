@@ -91,7 +91,7 @@ export default new GraphQLObjectType({
       type: aboriginalTenCharacteristicsFoodsConnection,
       description: '原住民十大特色美食集合(type)',
       args: connectionArgs,
-      resolve: ({data}, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });

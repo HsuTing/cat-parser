@@ -1,18 +1,16 @@
 'use strict';
 
 import {
-  GraphQLInt,
   GraphQLList,
   GraphQLEnumType
 } from 'graphql';
 
 import fetch from 'utils/fetch';
-import notIncluded from 'utils/notIncluded';
 import parseObjEnumType from 'utils/parse-obj-enumType';
 
 import dataType from './dataType';
 
-import {namesList, shopsList} from './constants';
+import {seqsList, namesList, shopsList} from './constants';
 
 export default {
   description: `
@@ -25,7 +23,11 @@ export default {
   type: dataType,
   args: {
     seqs: {
-      type: GraphQLInt
+      type: new GraphQLList(new GraphQLEnumType({
+        name: 'seqInput',
+        description: '編號',
+        values: parseObjEnumType(seqsList)
+      }))
     },
     names: {
       type: new GraphQLList(new GraphQLEnumType({
@@ -50,17 +52,16 @@ export default {
 
     data = {
       ...data,
-      data: (data.data[0].result.records || [])
+      data: (data.data[0].result.records || /* istanbul ignore next */ [])
     };
 
     if(seqs) {
-      if(seqs > 10 || seqs < 1)
-        notIncluded(`[graphql] "${seqs}" is not in 1~10.`);
+      const seqsArray = seqs.map(key => seqsList[key]);
 
       data = {
         ...data,
-        data: (data.data || []).filter(({Seq}) => {
-          return seqs == Seq;
+        data: (data.data || /* istanbul ignore next */ []).filter(({Seq}) => {
+          return seqsArray.includes(Seq);
         })
       };
     }
@@ -70,7 +71,7 @@ export default {
 
       data = {
         ...data,
-        data: (data.data || []).filter(({name}) => {
+        data: (data.data || /* istanbul ignore next */ []).filter(({name}) => {
           return namesChiName.includes(name);
         })
       };
@@ -81,7 +82,7 @@ export default {
 
       data = {
         ...data,
-        data: (data.data || []).filter(({shop}) => {
+        data: (data.data || /* istanbul ignore next */ []).filter(({shop}) => {
           return shopsChiName.includes(shop);
         })
       };

@@ -18,8 +18,8 @@ describe('aboriginal rituals holiday dates', () => {
       'when',
       'duration'
     ], {
-      seq: 'seqs:1',
-      ethnic: 'ethnics:amis'
+      seq: 'seqs: seq1',
+      ethnic: 'ethnics: amis'
     }
   );
 
