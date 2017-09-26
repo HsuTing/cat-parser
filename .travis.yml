@@ -7,7 +7,4 @@ script:
   - yarn getTempData
   - yarn build
   - yarn test
-branches:
-only:
-  - master
 yarn: true
