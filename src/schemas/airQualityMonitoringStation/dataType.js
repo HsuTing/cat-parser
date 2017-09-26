@@ -87,7 +87,7 @@ export default new GraphQLObjectType({
       type: airQualityMonitoringStationConnection,
       description: '空氣品質監測站基本資料集合(type)',
       args: connectionArgs,
-      resolve: ({data}, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });

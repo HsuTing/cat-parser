@@ -70,7 +70,7 @@ export default new GraphQLObjectType({
       type: ultraVioletStationConnection,
       description: '紫外線測站基本資料集合',
       args: connectionArgs,
-      resolve: ({data}, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });
