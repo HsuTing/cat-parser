@@ -6,6 +6,7 @@
  * 每小時: {minute: 10}
 */
 export default {
+  AboriginalRitualsHolidayDates: {day: 1},
   AirQualityMonitoringStation: {day: 1},
   RiverWaterQualityMonitoring: {day: 1},
   UltraVioletMonitoring: {minute: 10},
