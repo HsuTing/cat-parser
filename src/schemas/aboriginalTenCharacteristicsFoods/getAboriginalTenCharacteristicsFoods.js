@@ -1,0 +1,91 @@
+'use strict';
+
+import {
+  GraphQLInt,
+  GraphQLList,
+  GraphQLEnumType
+} from 'graphql';
+
+import fetch from 'utils/fetch';
+import notIncluded from 'utils/notIncluded';
+import parseObjEnumType from 'utils/parse-obj-enumType';
+
+import dataType from './dataType';
+
+import {namesList, shopsList} from './constants';
+
+export default {
+  description: `
+  原住民十大特色美食
+
+  依行政院原住民族委員會辦理之「2010原住民嚴選十大獻禮」甄選活動，評選出原住民十大特色美食，提供國內外遊客在造訪各地原鄉時享原味之參考。
+
+  資料來源：https://data.gov.tw/dataset/6083
+  `,
+  type: dataType,
+  args: {
+    seqs: {
+      type: GraphQLInt
+    },
+    names: {
+      type: new GraphQLList(new GraphQLEnumType({
+        name: 'nameInput',
+        description: '美食名稱',
+        values: parseObjEnumType(namesList)
+      }))
+    },
+    shops: {
+      type: new GraphQLList(new GraphQLEnumType({
+        name: 'shopInput',
+        description: '店家',
+        values: parseObjEnumType(shopsList)
+      }))
+    }
+  },
+  resolve: async (_data, {seqs, names, shops}, ctx) => {
+    let data = await fetch(
+      'AboriginalTenCharacteristicsFoods',
+      'http://lod2.apc.gov.tw/API/v1/dump/datastore/A53000000A-000003-001'
+    );
+
+    data = {
+      ...data,
+      data: (data.data[0].result.records || [])
+    };
+
+    if(seqs) {
+      if(seqs > 10 || seqs < 1)
+        notIncluded(`[graphql] "${seqs}" is not in 1~10.`);
+
+      data = {
+        ...data,
+        data: (data.data || []).filter(({Seq}) => {
+          return seqs == Seq;
+        })
+      };
+    }
+
+    if(names) {
+      const namesChiName = names.map(key => namesList[key]);
+
+      data = {
+        ...data,
+        data: (data.data || []).filter(({name}) => {
+          return namesChiName.includes(name);
+        })
+      };
+    }
+
+    if(shops) {
+      const shopsChiName = shops.map(key => shopsList[key]);
+
+      data = {
+        ...data,
+        data: (data.data || []).filter(({shop}) => {
+          return shopsChiName.includes(shop);
+        })
+      };
+    }
+    return data;
+  }
+};

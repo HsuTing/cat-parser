@@ -7,6 +7,7 @@
 */
 export default {
   AboriginalRitualsHolidayDates: {day: 1},
+  AboriginalTenCharacteristicsFoods: {day: 1},
   AirQualityMonitoringStation: {day: 1},
   RiverWaterQualityMonitoring: {day: 1},
   UltraVioletMonitoring: {minute: 10},
