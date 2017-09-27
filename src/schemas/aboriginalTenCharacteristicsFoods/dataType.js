@@ -42,7 +42,7 @@ export const dataFields = {
   alsoknownas: {
     type: new GraphQLNonNull(GraphQLString),
     description: '別稱',
-  resolve: ({AlsoKnownAs}) => AlsoKnownAs
+    resolve: ({AlsoKnownAs}) => AlsoKnownAs
   },
   shop: {
     type: new GraphQLNonNull(GraphQLString),
