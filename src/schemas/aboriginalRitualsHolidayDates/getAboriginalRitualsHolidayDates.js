@@ -40,10 +40,8 @@ export default {
     }
   },
   resolve: async (_data, {seqs, ethnics}, ctx) => {
-    let data = await fetch(
-      'AboriginalRitualsHolidayDates',
-      'http://lod2.apc.gov.tw/API/v1/dump/datastore/A53000000A-000001-001'
-    );
+    let data = await fetch('AboriginalRitualsHolidayDates');
+
     data = {
       ...data,
       data: (data.data[0].result.records || /* istanbul ignore next */ [])

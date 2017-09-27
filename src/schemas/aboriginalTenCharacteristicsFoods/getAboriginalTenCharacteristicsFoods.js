@@ -45,10 +45,7 @@ export default {
     }
   },
   resolve: async (_data, {seqs, names, shops}, ctx) => {
-    let data = await fetch(
-      'AboriginalTenCharacteristicsFoods',
-      'http://lod2.apc.gov.tw/API/v1/dump/datastore/A53000000A-000003-001'
-    );
+    let data = await fetch('AboriginalTenCharacteristicsFoods');
 
     data = {
       ...data,
