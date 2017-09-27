@@ -63,7 +63,7 @@ export default new GraphQLObjectType({
       type: <%= name %>Connection,
       description: '<%= chiName %>集合(type)',
       args: connectionArgs,
-      resolve: ({data}, args) => connectionFromArray(data || [], args)
+      resolve: ({data}, args) => connectionFromArray(data || /* istanbul ignore next */ [], args)
     }
   }
 });

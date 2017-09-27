@@ -31,10 +31,7 @@ export default {
     ...townshipArgs
   },
   resolve: async (_data, {...args}, ctx) => {
-    let data = await fetch(
-      'UltraVioletStation',
-      'http://opendata.epa.gov.tw/ws/Data/UVSite/?$format=json'
-    );
+    let data = await fetch('UltraVioletStation');
 
     data = await geoResolve(data, {
       latKey: 'TWD97Lat',
