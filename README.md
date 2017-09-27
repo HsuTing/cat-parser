@@ -15,7 +15,7 @@
 ![img](https://hsuting.github.io/open-data/imgs/init.png)
 
 ## License
-MIT © [HsuTing](http://hsuting.com)
+MIT © [HsuTing](http://hsuting.com) [peterlu14](https://github.com/peterlu14)
 
 [travis-image]: https://travis-ci.org/HsuTing/open-data.svg?branch=master
 [travis-url]: https://travis-ci.org/HsuTing/open-data
