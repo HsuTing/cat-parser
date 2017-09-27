@@ -41,10 +41,10 @@ process.on('unhandledRejection', reason => {
     const data = snapshot.val();
 
     await Promise.all(
-      nodeFs.readdirSync(path.resolve(__dirname, './../schemas'))
+      nodeFs.readdirSync(path.resolve(process.cwd(), './src/schemas'))
         .map(async schema => {
           try {
-            if(!nodeFs.lstatSync(path.resolve(__dirname, './../schemas', schema)).isDirectory())
+            if(!nodeFs.lstatSync(path.resolve(process.cwd(), './src/schemas', schema)).isDirectory())
               return;
 
             const name = schema[0].toUpperCase() + schema.slice(1);
