@@ -14,8 +14,17 @@ export default download(
     return require(path.resolve(process.cwd(), './data/download-river.json'));
   })
   .then(({RiverCode_OPENDATA}) => ({
-    rivers: RiverCode_OPENDATA.reduce((result, {BasinName, EnglishBasinName}) => {
-      result[EnglishBasinName.replace(/ /g, '')] = BasinName.replace(/ /g, '');
+    rivers: RiverCode_OPENDATA.reduce((result, {BasinName, EnglishBasinName, SubsidiaryBasinName, EnglishSubsidiaryBasinName,
+    SubSubsidiaryBasinName, EnglishSubSubsidiaryBasinName}) => {
+      result[EnglishBasinName.replace(/ /g, '')] = BasinName.replace(/ |排水/g, '');
+
+      if(EnglishSubsidiaryBasinName) {
+        result[EnglishSubsidiaryBasinName.replace(/ |\.|\-|\'/g, '').replace(/ü/, 'u')] = // eslint-disable-line no-useless-escape
+        SubsidiaryBasinName.replace(/ |排水/g, '');
+      }
+
+      if(EnglishSubSubsidiaryBasinName && !Object.values(result).includes(SubSubsidiaryBasinName.replace(/ |排水/g, '')))
+        result[EnglishSubSubsidiaryBasinName.replace(/ |\./g, '')] = SubSubsidiaryBasinName.replace(/ |排水/g, '');
 
       return result;
     }, {})
