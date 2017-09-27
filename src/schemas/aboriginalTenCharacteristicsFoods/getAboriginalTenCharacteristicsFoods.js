@@ -24,21 +24,21 @@ export default {
   args: {
     seqs: {
       type: new GraphQLList(new GraphQLEnumType({
-        name: 'seqInput',
+        name: 'SeqInput',
         description: '編號',
         values: parseObjEnumType(seqsList)
       }))
     },
     names: {
       type: new GraphQLList(new GraphQLEnumType({
-        name: 'nameInput',
+        name: 'NameInput',
         description: '美食名稱',
         values: parseObjEnumType(namesList)
       }))
     },
     shops: {
       type: new GraphQLList(new GraphQLEnumType({
-        name: 'shopInput',
+        name: 'ShopInput',
         description: '店家',
         values: parseObjEnumType(shopsList)
       }))
