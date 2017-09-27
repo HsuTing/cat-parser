@@ -12,10 +12,7 @@ import {
   connectionFromArray
 } from 'graphql-relay';
 
-import notIncluded from 'utils/notIncluded';
 import fields, {updateTime} from 'schemas/fields';
-
-import {namesList, shopsList} from './constants';
 
 const {nodeInterface} = fields;
 
@@ -32,12 +29,7 @@ export const dataFields = {
   name: {
     type: new GraphQLNonNull(GraphQLString),
     description: '美食名稱',
-    resolve: ({name}) => {
-      if(!Object.values(namesList).includes(name))
-        notIncluded(`[graphql] "${name}" is not in names list.`);
-
-      return name;
-    }
+    resolve: ({name}) => name
   },
   alsoknownas: {
     type: new GraphQLNonNull(GraphQLString),
@@ -47,12 +39,7 @@ export const dataFields = {
   shop: {
     type: new GraphQLNonNull(GraphQLString),
     description: '店家',
-    resolve: ({shop}) => {
-      if(!Object.values(shopsList).includes(shop))
-        notIncluded(`[graphql] "${shop}" is not in shops list.`);
-
-      return shop;
-    }
+    resolve: ({shop}) => shop
   },
   address: {
     type: new GraphQLNonNull(GraphQLString),

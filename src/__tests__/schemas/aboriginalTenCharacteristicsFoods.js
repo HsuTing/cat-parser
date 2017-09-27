@@ -1,7 +1,5 @@
 'use strict';
 
-import {dataFields} from 'schemas/aboriginalTenCharacteristicsFoods/dataType';
-
 import query from './utils/query';
 
 describe('aboriginal ten characteristics foods', () => {
@@ -14,27 +12,6 @@ describe('aboriginal ten characteristics foods', () => {
       'address',
       'telephone',
       'awards'
-    ], {
-      name: 'names: one',
-      shop: 'shops: one'
-    }
+    ],
   );
-
-  describe('# resolve', () => {
-    it('## name', () => {
-      const {name} = dataFields;
-
-      expect(() => {
-        name.resolve({name: 'test'});
-      }).toThrowError('[graphql] "test" is not in names list.');
-    });
-
-    it('## shop', () => {
-      const {shop} = dataFields;
-
-      expect(() => {
-        shop.resolve({shop: 'test'});
-      }).toThrowError('[graphql] "test" is not in shops list.');
-    });
-  });
 });

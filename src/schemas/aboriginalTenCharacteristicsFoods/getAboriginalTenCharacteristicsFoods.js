@@ -1,16 +1,8 @@
 'use strict';
 
-import {
-  GraphQLList,
-  GraphQLEnumType
-} from 'graphql';
-
 import fetch from 'utils/fetch';
-import parseObjEnumType from 'utils/parse-obj-enumType';
 
 import dataType from './dataType';
-
-import {namesList, shopsList} from './constants';
 
 export default {
   description: `
@@ -22,50 +14,14 @@ export default {
   `,
   type: dataType,
   args: {
-    names: {
-      type: new GraphQLList(new GraphQLEnumType({
-        name: 'NameInput',
-        description: '美食名稱',
-        values: parseObjEnumType(namesList)
-      }))
-    },
-    shops: {
-      type: new GraphQLList(new GraphQLEnumType({
-        name: 'ShopInput',
-        description: '店家',
-        values: parseObjEnumType(shopsList)
-      }))
-    }
   },
-  resolve: async (_data, {names, shops}, ctx) => {
+  resolve: async (_data, args, ctx) => {
     let data = await fetch('AboriginalTenCharacteristicsFoods');
 
     data = {
       ...data,
       data: (data.data[0].result.records || /* istanbul ignore next */ [])
     };
-
-    if(names) {
-      const namesChiName = names.map(key => namesList[key]);
-
-      data = {
-        ...data,
-        data: (data.data || /* istanbul ignore next */ []).filter(({name}) => {
-          return namesChiName.includes(name);
-        })
-      };
-    }
-
-    if(shops) {
-      const shopsChiName = shops.map(key => shopsList[key]);
-
-      data = {
-        ...data,
-        data: (data.data || /* istanbul ignore next */ []).filter(({shop}) => {
-          return shopsChiName.includes(shop);
-        })
-      };
-    }
 
     return data;
   }
