@@ -1,10 +1,10 @@
 'use restrict';
 
 export const seqsList = [].constructor.apply({}, new Array(17))
-    .reduce((result, data, index) => {
-      result[`seq${index+1}`] = index+1;
-      return result;
-    }, {});
+  .reduce((result, data, index) => {
+    result[`seq${index +1 }`] = index + 1;
+    return result;
+  }, {});
 
 export const ethnicsList = {
   amis: '阿美族',
