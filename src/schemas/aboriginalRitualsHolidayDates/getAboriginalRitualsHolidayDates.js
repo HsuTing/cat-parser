@@ -9,7 +9,6 @@ import fetch from 'utils/fetch';
 import parseObjEnumType from 'utils/parse-obj-enumType';
 
 import dataType from './dataType';
-
 import {seqsList, ethnicsList} from './constants';
 
 export default {
