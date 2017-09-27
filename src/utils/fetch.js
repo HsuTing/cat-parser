@@ -4,20 +4,25 @@ import fetch from 'node-fetch';
 import chalk from 'chalk';
 import moment from 'moment';
 
+import link from 'constants/link';
+
 import {
   getData,
   writeFile,
   checkUpdated
 } from './db';
 
-export default async (name, link) => {
+export default async name => {
   try {
     const time = await getData('time') || /* istanbul ignore next */ {};
     const check = !time[name] || checkUpdated(name, time[name]);
     let data = await getData(name);
 
+    if(!link[name])
+      throw new Error(`[link] ${name} is not included.`);
+
+    /* istanbul ignore next */
     if(!data || check) {
-      /* istanbul ignore next */
       if(check)
         console.log(chalk.cyan(`[db] update "${name}".`));
       else {
@@ -25,8 +30,7 @@ export default async (name, link) => {
         console.log(chalk.cyan('[db] fetch data from the website.'));
       }
 
-      /* istanbul ignore next */
-      fetch(link)
+      fetch(link[name])
         .then(res => res.json())
         .then(data => {
           time[name] = moment().format();

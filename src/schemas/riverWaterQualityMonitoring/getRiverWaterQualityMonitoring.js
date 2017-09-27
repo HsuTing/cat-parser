@@ -50,10 +50,7 @@ export default {
     }
   },
   resolve: async (_data, {itemNames, ...args}, ctx) => {
-    let data = await fetch(
-      'RiverWaterQualityMonitoring',
-      'http://opendata.epa.gov.tw/ws/Data/WQXRiver/?$format=json'
-    );
+    let data = await fetch('RiverWaterQualityMonitoring');
 
     data = await geoResolve(data, {
       lonKey: 'TWD97lon',

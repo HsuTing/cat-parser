@@ -54,10 +54,7 @@ export default {
     }
   },
   resolve: async (_data, {areaNames, siteTypes, ...args}, ctx) => {
-    let data = await fetch(
-      'AirQualityMonitoringStation',
-      'http://opendata.epa.gov.tw/ws/Data/AQXSite/?$format=json'
-    );
+    let data = await fetch('AirQualityMonitoringStation');
 
     data = await geoResolve(data, {
       latKey: 'TWD97Lat',

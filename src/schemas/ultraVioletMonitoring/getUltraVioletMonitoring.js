@@ -26,10 +26,7 @@ export default {
     ...countyArgs
   },
   resolve: async (_data, {...args}, ctx) => {
-    let data = await fetch(
-      'UltraVioletMonitoring',
-      'http://opendata.epa.gov.tw/ws/Data/UV/?$format=json'
-    );
+    let data = await fetch('UltraVioletMonitoring');
 
     data = await geoResolve(data, {
       latKey: 'WGS84Lat',
