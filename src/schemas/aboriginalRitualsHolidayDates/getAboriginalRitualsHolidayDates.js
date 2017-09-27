@@ -9,7 +9,7 @@ import fetch from 'utils/fetch';
 import parseObjEnumType from 'utils/parse-obj-enumType';
 
 import dataType from './dataType';
-import {seqsList, ethnicsList} from './constants';
+import {ethnicsList} from './constants';
 
 export default {
   description: `
@@ -23,13 +23,6 @@ export default {
   `,
   type: dataType,
   args: {
-    seqs: {
-      type: new GraphQLList(new GraphQLEnumType({
-        name: 'SeqInput',
-        description: '編號',
-        values: parseObjEnumType(seqsList)
-      }))
-    },
     ethnics: {
       type: new GraphQLList(new GraphQLEnumType({
         name: 'EthnicInput',
@@ -38,24 +31,13 @@ export default {
       }))
     }
   },
-  resolve: async (_data, {seqs, ethnics}, ctx) => {
+  resolve: async (_data, {ethnics}, ctx) => {
     let data = await fetch('AboriginalRitualsHolidayDates');
 
     data = {
       ...data,
       data: (data.data[0].result.records || /* istanbul ignore next */ [])
     };
-
-    if(seqs) {
-      const seqsArray = seqs.map(key => seqsList[key]);
-
-      data = {
-        ...data,
-        data: (data.data || /* istanbul ignore next */ []).filter(({Seq}) => {
-            return seqsArray.includes(Seq);
-        })
-      };
-    }
 
     if(ethnics) {
       const ethnicsChiName = ethnics.map(key => ethnicsList[key]);

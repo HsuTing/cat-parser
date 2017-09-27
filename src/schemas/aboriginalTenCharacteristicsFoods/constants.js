@@ -1,11 +1,5 @@
 'use strict';
 
-export const seqsList = [].constructor.apply({}, new Array(10))
-  .reduce((result, data, index) => {
-    result[`seq${index + 1}`] = index + 1;
-    return result;
-  }, {});
-
 export const namesList = {
   one: '山玉芙蓉',
   two: '刺蔥涼拌山豬肉',

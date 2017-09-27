@@ -10,7 +10,7 @@ import parseObjEnumType from 'utils/parse-obj-enumType';
 
 import dataType from './dataType';
 
-import {seqsList, namesList, shopsList} from './constants';
+import {namesList, shopsList} from './constants';
 
 export default {
   description: `
@@ -22,13 +22,6 @@ export default {
   `,
   type: dataType,
   args: {
-    seqs: {
-      type: new GraphQLList(new GraphQLEnumType({
-        name: 'SeqInput',
-        description: '編號',
-        values: parseObjEnumType(seqsList)
-      }))
-    },
     names: {
       type: new GraphQLList(new GraphQLEnumType({
         name: 'NameInput',
@@ -44,24 +37,13 @@ export default {
       }))
     }
   },
-  resolve: async (_data, {seqs, names, shops}, ctx) => {
+  resolve: async (_data, {names, shops}, ctx) => {
     let data = await fetch('AboriginalTenCharacteristicsFoods');
 
     data = {
       ...data,
       data: (data.data[0].result.records || /* istanbul ignore next */ [])
     };
-
-    if(seqs) {
-      const seqsArray = seqs.map(key => seqsList[key]);
-
-      data = {
-        ...data,
-        data: (data.data || /* istanbul ignore next */ []).filter(({Seq}) => {
-          return seqsArray.includes(Seq);
-        })
-      };
-    }
 
     if(names) {
       const namesChiName = names.map(key => namesList[key]);
@@ -84,6 +66,7 @@ export default {
         })
       };
     }
+
     return data;
   }
 };
