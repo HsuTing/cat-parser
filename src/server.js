@@ -20,7 +20,7 @@ const root = path.resolve(__dirname, './../');
 const ENV = process.env.NODE_ENV === 'production';
 
 // middleware
-/* istanbul ignore if */
+// /* istanbul ignore next */
 if(ENV) {
   app.use(morgan('combined', {
     stream: fs.createWriteStream(
@@ -29,7 +29,7 @@ if(ENV) {
       }
     )
   }));
-} else
+} else if(process.env.NODE_ENV !== 'test')
   app.use(morgan('dev'));
 app.use(helmet());
 app.use(etag());
